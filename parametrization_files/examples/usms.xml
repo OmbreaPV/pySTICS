@@ -1,0 +1,1035 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>                                              
+<usms version="10.0">                                                                               
+  <usm nom="SugarCane">                                                                             
+    <datedebut>286</datedebut>                                                                      
+    <datefin>650</datefin>                                                                          
+    <finit>canne_ini.xml</finit>                                                                    
+    <nomsol>solcanne</nomsol>                                                                       
+    <fstation>climcanj_sta.xml</fstation>                                                           
+    <fclim1>climcanj.1998</fclim1>                                                                  
+    <fclim2>climcanj.1999</fclim2>                                                                  
+    <culturean>0</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>proto_sugarcane_plt.xml</fplt>                                                          
+      <ftec>canne_tec.xml</ftec>                                                                    
+      <flai>null</flai>                                                                             
+      <fobs>SugarCane.obs</fobs>                                                                    
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="potato">                                                                                
+    <datedebut>91</datedebut>                                                                       
+    <datefin>250</datefin>                                                                          
+    <finit>patate_ini.xml</finit>                                                                   
+    <nomsol>solpatate</nomsol>                                                                      
+    <fstation>climpdtj_sta.xml</fstation>                                                           
+    <fclim1>climpdtj.1997</fclim1>                                                                  
+    <fclim2>climpdtj.1997</fclim2>                                                                  
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>proto_potato_plt.xml</fplt>                                                             
+      <ftec>patate_tec.xml</ftec>                                                                   
+      <flai>null</flai>                                                                             
+      <fobs>potato.obs</fobs>                                                                       
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="banana">                                                                                
+    <datedebut>30</datedebut>                                                                       
+    <datefin>300</datefin>                                                                          
+    <finit>banane_ini.xml</finit>                                                                   
+    <nomsol>solbanane</nomsol>                                                                      
+    <fstation>climbanj_sta.xml</fstation>                                                           
+    <fclim1>climbanj.1996</fclim1>                                                                  
+    <fclim2>climbanj.1996</fclim2>                                                                  
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>proto_banana_plt.xml</fplt>                                                             
+      <ftec>banane_tec.xml</ftec>                                                                   
+      <flai>null</flai>                                                                             
+      <fobs>banana.obs</fobs>                                                                       
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="sorghum">                                                                               
+    <datedebut>112</datedebut>                                                                      
+    <datefin>360</datefin>                                                                          
+    <finit>sorgho_ini.xml</finit>                                                                   
+    <nomsol>solsorgho</nomsol>                                                                      
+    <fstation>climsorj_sta.xml</fstation>                                                           
+    <fclim1>climsorj.1996</fclim1>                                                                  
+    <fclim2>climsorj.1996</fclim2>                                                                  
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>proto_sorghum_plt.xml</fplt>                                                            
+      <ftec>sorgho_tec.xml</ftec>                                                                   
+      <flai>sorgho.lai</flai>                                                                       
+      <fobs>sorghum.obs</fobs>                                                                      
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="sugarbeet">                                                                             
+    <datedebut>1</datedebut>                                                                        
+    <datefin>335</datefin>                                                                          
+    <finit>bettera_ini.xml</finit>                                                                  
+    <nomsol>solbett</nomsol>                                                                        
+    <fstation>climbetj_sta.xml</fstation>                                                           
+    <fclim1>climbetj.1994</fclim1>                                                                  
+    <fclim2>climbetj.1994</fclim2>                                                                  
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>sugarbeet_plt.xml</fplt>                                                                
+      <ftec>bettera_tec.xml</ftec>                                                                  
+      <flai>bettera.lai</flai>                                                                      
+      <fobs>sugarbeet.obs</fobs>                                                                    
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="wheat">                                                                                 
+    <datedebut>290</datedebut>                                                                      
+    <datefin>700</datefin>                                                                          
+    <finit>ble_ini.xml</finit>                                                                      
+    <nomsol>solble</nomsol>                                                                         
+    <fstation>climblej_sta.xml</fstation>                                                           
+    <fclim1>climblej.1994</fclim1>                                                                  
+    <fclim2>climblej.1995</fclim2>                                                                  
+    <culturean>0</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>wheat_plt.xml</fplt>                                                                    
+      <ftec>Ble_tec.xml</ftec>                                                                      
+      <flai>ble.lai</flai>                                                                          
+      <fobs>wheat.obs</fobs>                                                                        
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="maize">                                                                                 
+    <datedebut>112</datedebut>                                                                      
+    <datefin>360</datefin>                                                                          
+    <finit>mais_ini.xml</finit>                                                                     
+    <nomsol>solmais</nomsol>                                                                        
+    <fstation>climaisj_sta.xml</fstation>                                                           
+    <fclim1>climaisj.1996</fclim1>                                                                  
+    <fclim2>climaisj.1996</fclim2>                                                                  
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>corn_plt.xml</fplt>                                                                     
+      <ftec>Mais_tec.xml</ftec>                                                                     
+      <flai>mais.lai</flai>                                                                         
+      <fobs>maize.obs</fobs>                                                                        
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="soybean">                                                                               
+    <datedebut>180</datedebut>                                                                      
+    <datefin>280</datefin>                                                                          
+    <finit>soja_ini.xml</finit>                                                                     
+    <nomsol>solsoja</nomsol>                                                                        
+    <fstation>climsojj_sta.xml</fstation>                                                           
+    <fclim1>climsojj.1990</fclim1>                                                                  
+    <fclim2>climsojj.1990</fclim2>                                                                  
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>proto_soybean_plt.xml</fplt>                                                            
+      <ftec>Soja_tec.xml</ftec>                                                                     
+      <flai>soja.lai</flai>                                                                         
+      <fobs>soybean.obs</fobs>                                                                      
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="lettuce">                                                                               
+    <datedebut>12</datedebut>                                                                       
+    <datefin>74</datefin>                                                                           
+    <finit>salade_ini.xml</finit>                                                                   
+    <nomsol>solsalade</nomsol>                                                                      
+    <fstation>climsalj_sta.xml</fstation>                                                           
+    <fclim1>climsalj.2000</fclim1>                                                                  
+    <fclim2>climsalj.2000</fclim2>                                                                  
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>proto_lettuce_plt.xml</fplt>                                                            
+      <ftec>Salade_tec.xml</ftec>                                                                   
+      <flai>salade.lai</flai>                                                                       
+      <fobs>lettuce.obs</fobs>                                                                      
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="tomato">                                                                                
+    <datedebut>308</datedebut>                                                                      
+    <datefin>437</datefin>                                                                          
+    <finit>tomate_ini.xml</finit>                                                                   
+    <nomsol>soltomate</nomsol>                                                                      
+    <fstation>climtomj_sta.xml</fstation>                                                           
+    <fclim1>climtomj.2000</fclim1>                                                                  
+    <fclim2>climtomj.2001</fclim2>                                                                  
+    <culturean>0</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>proto_tomato_plt.xml</fplt>                                                             
+      <ftec>tomate_tec.xml</ftec>                                                                   
+      <flai>null</flai>                                                                             
+      <fobs>tomato.obs</fobs>                                                                       
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="DurumWheat">                                                                            
+    <datedebut>243</datedebut>                                                                      
+    <datefin>622</datefin>                                                                          
+    <finit>bledur_ini.xml</finit>                                                                   
+    <nomsol>solbldur</nomsol>                                                                       
+    <fstation>climbldj_sta.xml</fstation>                                                           
+    <fclim1>climbldj.2000</fclim1>                                                                  
+    <fclim2>climbldj.2001</fclim2>                                                                  
+    <culturean>0</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>DurumWheat_ACALOU_plt.xml</fplt>                                                        
+      <ftec>bledur_tec.xml</ftec>                                                                   
+      <flai>bledur.lai</flai>                                                                       
+      <fobs>DurumWheat.obs</fobs>                                                                   
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="rapeseed">                                                                              
+    <datedebut>252</datedebut>                                                                      
+    <datefin>557</datefin>                                                                          
+    <finit>colza_ini.xml</finit>                                                                    
+    <nomsol>solcolza</nomsol>                                                                       
+    <fstation>climcolj_sta.xml</fstation>                                                           
+    <fclim1>climcolj.1994</fclim1>                                                                  
+    <fclim2>climcolj.1995</fclim2>                                                                  
+    <culturean>0</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>rapeseed_plt.xml</fplt>                                                                 
+      <ftec>Colza_tec.xml</ftec>                                                                    
+      <flai>colza.lai</flai>                                                                        
+      <fobs>rapeseed.obs</fobs>                                                                     
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="sunflower">                                                                             
+    <datedebut>106</datedebut>                                                                      
+    <datefin>365</datefin>                                                                          
+    <finit>toursol_ini.xml</finit>                                                                  
+    <nomsol>soltousol</nomsol>                                                                      
+    <fstation>climtouj_sta.xml</fstation>                                                           
+    <fclim1>climtouj.1996</fclim1>                                                                  
+    <fclim2>climtouj.1996</fclim2>                                                                  
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>proto_sunflower_plt.xml</fplt>                                                          
+      <ftec>Toursol_tec.xml</ftec>                                                                  
+      <flai>toursol.lai</flai>                                                                      
+      <fobs>sunflower.obs</fobs>                                                                    
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="grass">                                                                                 
+    <datedebut>1</datedebut>                                                                        
+    <datefin>365</datefin>                                                                          
+    <finit>prairie_ini.xml</finit>                                                                  
+    <nomsol>solprairie</nomsol>                                                                     
+    <fstation>prairiej_sta.xml</fstation>                                                           
+    <fclim1>prairiej.1995</fclim1>                                                                  
+    <fclim2>prairiej.1995</fclim2>                                                                  
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>grass_plt.xml</fplt>                                                                    
+      <ftec>Prairie_tec.xml</ftec>                                                                  
+      <flai>null</flai>                                                                             
+      <fobs>grass.obs</fobs>                                                                        
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="BareSoil">                                                                              
+    <datedebut>215</datedebut>                                                                      
+    <datefin>365</datefin>                                                                          
+    <finit>solnu_ini.xml</finit>                                                                    
+    <nomsol>solnu</nomsol>                                                                          
+    <fstation>climsnuj_sta.xml</fstation>                                                           
+    <fclim1>climsnuj.1998</fclim1>                                                                  
+    <fclim2>climsnuj.1998</fclim2>                                                                  
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>baresoil_plt.xml</fplt>                                                                 
+      <ftec>Solnu_tec.xml</ftec>                                                                    
+      <flai>null</flai>                                                                             
+      <fobs>BareSoil.obs</fobs>                                                                     
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="demo_Wheat1">                                                                           
+    <datedebut>275</datedebut>                                                                      
+    <datefin>577</datefin>                                                                          
+    <finit>demble1_ini.xml</finit>                                                                  
+    <nomsol>solsoja</nomsol>                                                                        
+    <fstation>statio5j_sta.xml</fstation>                                                           
+    <fclim1>statio5j.1992</fclim1>                                                                  
+    <fclim2>statio5j.1993</fclim2>                                                                  
+    <culturean>0</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>wheat_plt.xml</fplt>                                                                    
+      <ftec>ble1_tec.xml</ftec>                                                                     
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="demo_BareSoil2">                                                                        
+    <datedebut>212</datedebut>                                                                      
+    <datefin>424</datefin>                                                                          
+    <finit>demsnu2_ini.xml</finit>                                                                  
+    <nomsol>solsoja</nomsol>                                                                        
+    <fstation>statio5j_sta.xml</fstation>                                                           
+    <fclim1>statio5j.1993</fclim1>                                                                  
+    <fclim2>statio5j.1994</fclim2>                                                                  
+    <culturean>0</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>baresoil_plt.xml</fplt>                                                                 
+      <ftec>solnu2_tec.xml</ftec>                                                                   
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="demo_maize3">                                                                           
+    <datedebut>60</datedebut>                                                                       
+    <datefin>320</datefin>                                                                          
+    <finit>demais3_ini.xml</finit>                                                                  
+    <nomsol>solsoja</nomsol>                                                                        
+    <fstation>statio5j_sta.xml</fstation>                                                           
+    <fclim1>statio5j.1994</fclim1>                                                                  
+    <fclim2>statio5j.1994</fclim2>                                                                  
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>corn_plt.xml</fplt>                                                                     
+      <ftec>mais3_tec.xml</ftec>                                                                    
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="DurumWheat_4years">                                                                     
+    <datedebut>270</datedebut>                                                                      
+    <datefin>577</datefin>                                                                          
+    <finit>ble4ans_ini.xml</finit>                                                                  
+    <nomsol>solbldur</nomsol>                                                                       
+    <fstation>statio5j_sta.xml</fstation>                                                           
+    <fclim1>statio5j.1992</fclim1>                                                                  
+    <fclim2>statio5j.1996</fclim2>                                                                  
+    <culturean>0</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>DurumWheat_ACALOU_plt.xml</fplt>                                                        
+      <ftec>ble4_tec.xml</ftec>                                                                     
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="maize_4years">                                                                          
+    <datedebut>1</datedebut>                                                                        
+    <datefin>300</datefin>                                                                          
+    <finit>mai5ans_ini.xml</finit>                                                                  
+    <nomsol>solbldur</nomsol>                                                                       
+    <fstation>statio5j_sta.xml</fstation>                                                           
+    <fclim1>statio5j.1992</fclim1>                                                                  
+    <fclim2>statio5j.1996</fclim2>                                                                  
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>corn_plt.xml</fplt>                                                                     
+      <ftec>mais3_tec.xml</ftec>                                                                    
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="strawberry">                                                                            
+    <datedebut>38</datedebut>                                                                       
+    <datefin>181</datefin>                                                                          
+    <finit>fraise_ini.xml</finit>                                                                   
+    <nomsol>solfraise</nomsol>                                                                      
+    <fstation>climfraj_sta.xml</fstation>                                                           
+    <fclim1>climfraj.2001</fclim1>                                                                  
+    <fclim2>climfraj.2001</fclim2>                                                                  
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>proto_strawberry_plt.xml</fplt>                                                         
+      <ftec>Fraise_tec.xml</ftec>                                                                   
+      <flai>sortie.lai</flai>                                                                       
+      <fobs>strawberry.obs</fobs>                                                                   
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="vine">                                                                                  
+    <datedebut>213</datedebut>                                                                      
+    <datefin>720</datefin>                                                                          
+    <finit>vigne_ini.xml</finit>                                                                    
+    <nomsol>Ser_Gr</nomsol>                                                                         
+    <fstation>climvigj_sta.xml</fstation>                                                           
+    <fclim1>climvigj.2003</fclim1>                                                                  
+    <fclim2>climvigj.2004</fclim2>                                                                  
+    <culturean>0</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>vine_GRENAC_plt.xml</fplt>                                                              
+      <ftec>vigne_tec.xml</ftec>                                                                    
+      <flai>vigne.lai</flai>                                                                        
+      <fobs>vine.obs</fobs>                                                                         
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="fescue">                                                                                
+    <datedebut>168</datedebut>                                                                      
+    <datefin>210</datefin>                                                                          
+    <finit>fetuque_ini.xml</finit>                                                                  
+    <nomsol>solfetuq</nomsol>                                                                       
+    <fstation>climfetj_sta.xml</fstation>                                                           
+    <fclim1>climfetj.2004</fclim1>                                                                  
+    <fclim2>climfetj.2004</fclim2>                                                                  
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>proto_fescue_plt.xml</fplt>                                                             
+      <ftec>fetuque_tec.xml</ftec>                                                                  
+      <flai>null</flai>                                                                             
+      <fobs>fescue.obs</fobs>                                                                       
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="flax">                                                                                  
+    <datedebut>64</datedebut>                                                                       
+    <datefin>300</datefin>                                                                          
+    <finit>lin_ini.xml</finit>                                                                      
+    <nomsol>solvigne</nomsol>                                                                       
+    <fstation>climlinj_sta.xml</fstation>                                                           
+    <fclim1>climlinj.2002</fclim1>                                                                  
+    <fclim2>climlinj.2002</fclim2>                                                                  
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>proto_flax_plt.xml</fplt>                                                               
+      <ftec>lin_tec.xml</ftec>                                                                      
+      <flai>null</flai>                                                                             
+      <fobs>flax.obs</fobs>                                                                         
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="intercrop_pea_barley">                                                                  
+    <datedebut>70</datedebut>                                                                       
+    <datefin>274</datefin>                                                                          
+    <finit>orgpoi_ini.xml</finit>                                                                   
+    <nomsol>Limon-Paris</nomsol>                                                                    
+    <fstation>readcasj_sta.xml</fstation>                                                           
+    <fclim1>readingj.2004</fclim1>                                                                  
+    <fclim2>readingj.2004</fclim2>                                                                  
+    <culturean>1</culturean>                                                                        
+    <nbplantes>2</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>proto_pea_InterCrop_plt.xml</fplt>                                                      
+      <ftec>piadan4_tec.xml</ftec>                                                                  
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>proto_barley_InterCrop_plt.xml</fplt>                                                   
+      <ftec>aiadan4_tec.xml</ftec>                                                                  
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="timothy">                                                                               
+    <datedebut>91</datedebut>                                                                       
+    <datefin>273</datefin>                                                                          
+    <finit>timothy_ini.xml</finit>                                                                  
+    <nomsol>soltimothy</nomsol>                                                                     
+    <fstation>chapaisj_sta.xml</fstation>                                                           
+    <fclim1>chapaisj.2001</fclim1>                                                                  
+    <fclim2>chapaisj.2001</fclim2>                                                                  
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>timothy_plt.xml</fplt>                                                                  
+      <ftec>timothy_tec.xml</ftec>                                                                  
+      <flai>defaut.lai</flai>                                                                       
+      <fobs>timothy.obs</fobs>                                                                      
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="Turmeric">                                                                              
+    <datedebut>50</datedebut>                                                                       
+    <datefin>360</datefin>                                                                          
+    <finit>turmeric_ini.xml</finit>                                                                 
+    <nomsol>soil_turmeric</nomsol>                                                                  
+    <fstation>flux000j_sta.xml</fstation>                                                           
+    <fclim1>flux000j.2013</fclim1>                                                                  
+    <fclim2>flux000j.2013</fclim2>                                                                  
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>proto_turmeric_plt.xml</fplt>                                                           
+      <ftec>turmeric_tec.xml</ftec>                                                                 
+      <flai>defaut.lai</flai>                                                                       
+      <fobs>Turmeric.obs</fobs>                                                                     
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="cc_BristleOat">                                                                         
+    <datedebut>234</datedebut>                                                                      
+    <datefin>405</datefin>                                                                          
+    <finit>cc_BristleOat_ini.xml</finit>                                                            
+    <nomsol>A13_SC</nomsol>                                                                         
+    <fstation>AuzevilleJ_sta.xml</fstation>                                                         
+    <fclim1>Auzeville.2013</fclim1>                                                                 
+    <fclim2>Auzeville.2014</fclim2>                                                                 
+    <culturean>0</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>BristleOat_CoverCrop_plt.xml</fplt>                                                     
+      <ftec>cc_BristleOat_tec.xml</ftec>                                                            
+      <flai>default.lai</flai>                                                                      
+      <fobs>cc_BristleOat.obs</fobs>                                                                
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="cc_mustard">                                                                            
+    <datedebut>234</datedebut>                                                                      
+    <datefin>405</datefin>                                                                          
+    <finit>cc_mustard_ini.xml</finit>                                                               
+    <nomsol>A13_SC</nomsol>                                                                         
+    <fstation>AuzevilleJ_sta.xml</fstation>                                                         
+    <fclim1>Auzeville.2013</fclim1>                                                                 
+    <fclim2>Auzeville.2014</fclim2>                                                                 
+    <culturean>0</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>mustard_CoverCrop_plt.xml</fplt>                                                        
+      <ftec>cc_mustard_tec.xml</ftec>                                                               
+      <flai>default.lai</flai>                                                                      
+      <fobs>cc_mustard.obs</fobs>                                                                   
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="cc_ItalianRyegrass">                                                                    
+    <datedebut>212</datedebut>                                                                      
+    <datefin>405</datefin>                                                                          
+    <finit>cc_ItalianRyegrass_ini.xml</finit>                                                       
+    <nomsol>A12RA_SC</nomsol>                                                                       
+    <fstation>AuzevilleJ_sta.xml</fstation>                                                         
+    <fclim1>Auzeville.2012</fclim1>                                                                 
+    <fclim2>Auzeville.2013</fclim2>                                                                 
+    <culturean>0</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>ItalianRyegrass_CoverCrop_plt.xml</fplt>                                                
+      <ftec>cc_ItalianRyegrass_tec.xml</ftec>                                                       
+      <flai>default.lai</flai>                                                                      
+      <fobs>cc_ItalianRyegrass.obs</fobs>                                                           
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="cc_vetch">                                                                              
+    <datedebut>212</datedebut>                                                                      
+    <datefin>405</datefin>                                                                          
+    <finit>cc_vetch_ini.xml</finit>                                                                 
+    <nomsol>A12RA_SC</nomsol>                                                                       
+    <fstation>AuzevilleJ_sta.xml</fstation>                                                         
+    <fclim1>Auzeville.2012</fclim1>                                                                 
+    <fclim2>Auzeville.2013</fclim2>                                                                 
+    <culturean>0</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>vetch_CoverCrop_plt.xml</fplt>                                                          
+      <ftec>cc_vetch_tec.xml</ftec>                                                                 
+      <flai>default.lai</flai>                                                                      
+      <fobs>cc_vetch.obs</fobs>                                                                     
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="cc_CrimsonClover">                                                                      
+    <datedebut>234</datedebut>                                                                      
+    <datefin>405</datefin>                                                                          
+    <finit>cc_CrimsonClover_ini.xml</finit>                                                         
+    <nomsol>A13_SC</nomsol>                                                                         
+    <fstation>AuzevilleJ_sta.xml</fstation>                                                         
+    <fclim1>Auzeville.2013</fclim1>                                                                 
+    <fclim2>Auzeville.2014</fclim2>                                                                 
+    <culturean>0</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>CrimsonClover_CoverCrop_plt.xml</fplt>                                                  
+      <ftec>cc_CrimsonClover_tec.xml</ftec>                                                         
+      <flai>default.lai</flai>                                                                      
+      <fobs>cc_CrimsonClover.obs</fobs>                                                             
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="proto_rice">                                                                            
+    <datedebut>100</datedebut>                                                                      
+    <datefin>300</datefin>                                                                          
+    <finit>proto_rice_ini.xml</finit>                                                               
+    <nomsol>soil_rice</nomsol>                                                                      
+    <fstation>fourquej_sta.xml</fstation>                                                           
+    <fclim1>fourquej.1988</fclim1>                                                                  
+    <fclim2>fourquej.1988</fclim2>                                                                  
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>proto_rice_plt.xml</fplt>                                                               
+      <ftec>proto_rice_tec.xml</ftec>                                                               
+      <flai>null</flai>                                                                             
+      <fobs>proto_rice.obs</fobs>                                                                   
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="Miscanthus_2006">                                                                       
+    <datedebut>1</datedebut>                                                                        
+    <datefin>365</datefin>                                                                          
+    <finit>Miscanthus_ini.xml</finit>                                                               
+    <nomsol>Miscanthus</nomsol>                                                                     
+    <fstation>Miscanthus_sta.xml</fstation>                                                         
+    <fclim1>Miscanthus.2006</fclim1>                                                                
+    <fclim2>Miscanthus.2006</fclim2>                                                                
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>Miscanthus_yr1_plt.xml</fplt>                                                           
+      <ftec>Miscanthus_2006_tec.xml</ftec>                                                          
+      <flai>null</flai>                                                                             
+      <fobs>Miscanthus_2006.obs</fobs>                                                              
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="Miscanthus_2007">                                                                       
+    <datedebut>1</datedebut>                                                                        
+    <datefin>365</datefin>                                                                          
+    <finit>Miscanthus_ini.xml</finit>                                                               
+    <nomsol>Miscanthus</nomsol>                                                                     
+    <fstation>Miscanthus_sta.xml</fstation>                                                         
+    <fclim1>Miscanthus.2007</fclim1>                                                                
+    <fclim2>Miscanthus.2007</fclim2>                                                                
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>Miscanthus_plt.xml</fplt>                                                               
+      <ftec>Miscanthus_2007_tec.xml</ftec>                                                          
+      <flai>null</flai>                                                                             
+      <fobs>Miscanthus_2007.obs</fobs>                                                              
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="Miscanthus_2008">                                                                       
+    <datedebut>1</datedebut>                                                                        
+    <datefin>366</datefin>                                                                          
+    <finit>Miscanthus_ini.xml</finit>                                                               
+    <nomsol>Miscanthus</nomsol>                                                                     
+    <fstation>Miscanthus_sta.xml</fstation>                                                         
+    <fclim1>Miscanthus.2008</fclim1>                                                                
+    <fclim2>Miscanthus.2008</fclim2>                                                                
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>Miscanthus_plt.xml</fplt>                                                               
+      <ftec>Miscanthus_2008_tec.xml</ftec>                                                          
+      <flai>null</flai>                                                                             
+      <fobs>Miscanthus_2008.obs</fobs>                                                              
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="Miscanthus_2009">                                                                       
+    <datedebut>1</datedebut>                                                                        
+    <datefin>365</datefin>                                                                          
+    <finit>Miscanthus_ini.xml</finit>                                                               
+    <nomsol>Miscanthus</nomsol>                                                                     
+    <fstation>Miscanthus_sta.xml</fstation>                                                         
+    <fclim1>Miscanthus.2009</fclim1>                                                                
+    <fclim2>Miscanthus.2009</fclim2>                                                                
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>Miscanthus_plt.xml</fplt>                                                               
+      <ftec>Miscanthus_2009_tec.xml</ftec>                                                          
+      <flai>null</flai>                                                                             
+      <fobs>Miscanthus_2009.obs</fobs>                                                              
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="Miscanthus_2010">                                                                       
+    <datedebut>1</datedebut>                                                                        
+    <datefin>365</datefin>                                                                          
+    <finit>Miscanthus_ini.xml</finit>                                                               
+    <nomsol>Miscanthus</nomsol>                                                                     
+    <fstation>Miscanthus_sta.xml</fstation>                                                         
+    <fclim1>Miscanthus.2010</fclim1>                                                                
+    <fclim2>Miscanthus.2010</fclim2>                                                                
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>Miscanthus_plt.xml</fplt>                                                               
+      <ftec>Miscanthus_2010_tec.xml</ftec>                                                          
+      <flai>null</flai>                                                                             
+      <fobs>Miscanthus_2010.obs</fobs>                                                              
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="Miscanthus_2011">                                                                       
+    <datedebut>1</datedebut>                                                                        
+    <datefin>365</datefin>                                                                          
+    <finit>Miscanthus_ini.xml</finit>                                                               
+    <nomsol>Miscanthus</nomsol>                                                                     
+    <fstation>Miscanthus_sta.xml</fstation>                                                         
+    <fclim1>Miscanthus.2011</fclim1>                                                                
+    <fclim2>Miscanthus.2011</fclim2>                                                                
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>Miscanthus_plt.xml</fplt>                                                               
+      <ftec>Miscanthus_2011_tec.xml</ftec>                                                          
+      <flai>null</flai>                                                                             
+      <fobs>Miscanthus_2011.obs</fobs>                                                              
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="Miscanthus_2012">                                                                       
+    <datedebut>1</datedebut>                                                                        
+    <datefin>366</datefin>                                                                          
+    <finit>Miscanthus_ini.xml</finit>                                                               
+    <nomsol>Miscanthus</nomsol>                                                                     
+    <fstation>Miscanthus_sta.xml</fstation>                                                         
+    <fclim1>Miscanthus.2012</fclim1>                                                                
+    <fclim2>Miscanthus.2012</fclim2>                                                                
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>Miscanthus_plt.xml</fplt>                                                               
+      <ftec>Miscanthus_2012_tec.xml</ftec>                                                          
+      <flai>null</flai>                                                                             
+      <fobs>Miscanthus_2012.obs</fobs>                                                              
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="Miscanthus_2013">                                                                       
+    <datedebut>1</datedebut>                                                                        
+    <datefin>365</datefin>                                                                          
+    <finit>Miscanthus_ini.xml</finit>                                                               
+    <nomsol>Miscanthus</nomsol>                                                                     
+    <fstation>Miscanthus_sta.xml</fstation>                                                         
+    <fclim1>Miscanthus.2013</fclim1>                                                                
+    <fclim2>Miscanthus.2013</fclim2>                                                                
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>Miscanthus_plt.xml</fplt>                                                               
+      <ftec>Miscanthus_2013_tec.xml</ftec>                                                          
+      <flai>null</flai>                                                                             
+      <fobs>Miscanthus_2013.obs</fobs>                                                              
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="Miscanthus_2014">                                                                       
+    <datedebut>1</datedebut>                                                                        
+    <datefin>365</datefin>                                                                          
+    <finit>Miscanthus_ini.xml</finit>                                                               
+    <nomsol>Miscanthus</nomsol>                                                                     
+    <fstation>Miscanthus_sta.xml</fstation>                                                         
+    <fclim1>Miscanthus.2014</fclim1>                                                                
+    <fclim2>Miscanthus.2014</fclim2>                                                                
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>Miscanthus_plt.xml</fplt>                                                               
+      <ftec>Miscanthus_2014_tec.xml</ftec>                                                          
+      <flai>null</flai>                                                                             
+      <fobs>Miscanthus_2014.obs</fobs>                                                              
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+  <usm nom="Miscanthus_2015">                                                                       
+    <datedebut>1</datedebut>                                                                        
+    <datefin>365</datefin>                                                                          
+    <finit>Miscanthus_ini.xml</finit>                                                               
+    <nomsol>Miscanthus</nomsol>                                                                     
+    <fstation>Miscanthus_sta.xml</fstation>                                                         
+    <fclim1>Miscanthus.2015</fclim1>                                                                
+    <fclim2>Miscanthus.2015</fclim2>                                                                
+    <culturean>1</culturean>                                                                        
+    <nbplantes>1</nbplantes>                                                                        
+    <codesimul>0</codesimul>                                                                        
+    <plante dominance="1">                                                                          
+      <fplt>Miscanthus_plt.xml</fplt>                                                               
+      <ftec>Miscanthus_2015_tec.xml</ftec>                                                          
+      <flai>null</flai>                                                                             
+      <fobs>Miscanthus_2015.obs</fobs>                                                              
+    </plante>                                                                                       
+    <plante dominance="2">                                                                          
+      <fplt>null</fplt>                                                                             
+      <ftec>null</ftec>                                                                             
+      <flai>null</flai>                                                                             
+      <fobs>null</fobs>                                                                             
+    </plante>                                                                                       
+  </usm>                                                                                            
+</usms>

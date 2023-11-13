@@ -1,0 +1,398 @@
+ -----------------------------------------------------------------------------------------
+ Stics history file            Creation date: 2023/10/10-09:00:39
+ STICS Version: V10.0.0_r3391_2022-10-26                          
+ -----------------------------------------------------------------------------------------
+ 
+ 
+    
+ GENERAL PARAMETERS USEFUL FOR THE SIMULATION
+ *********************************************
+ Nitrogen stress actived            1
+ Water stress actived           1
+ Depth for mineral N and water stocks calculation = profmes           1
+ Climatic series = reset of the initial conditions           1
+ Biomass and yield conservation after harvest           1
+ Take account of mulch effect (drying out of soil surface)           1
+ Fruit load = all fruits (including ripe ones)           1
+ Hourly microclimate           1
+ Separator in report = ;
+ P_parsurrg  0.479999989    
+ P_coefb   8.15000013E-02
+ P_proprac  0.200000003    
+ P_y0msrac   0.699999988    
+ P_dacohes  0.699999988    
+ P_daseuilbas   1.39999998    
+ P_daseuilhaut   2.00000000    
+ P_beta   1.39999998    
+ P_lvopt  0.500000000    
+ P_difN   4.50000018E-02
+ P_plNmin   10.0000000    
+ P_irrlev   20.0000000    
+ P_QNpltminINN   0.00000000    
+ Nitrogen fixation by legumes = nodule activity           2
+ Mineral nitrogen inhibition = nitrogen amount           2
+ P_tmin_mineralisation   0.00000000    
+ P_FTEMh  0.119999997    
+ P_FTEMha   25.0000000    
+ P_TREFh   15.0000000    
+ P_FTEMr  0.103000000    
+ P_FTEMra   12.0000000    
+ P_TREFr   15.0000000    
+ P_gmin1   6.99999975E-04
+ P_gmin2   2.51899995E-02
+ P_gmin3   1.49999997E-02
+ P_gmin4  0.112000003    
+ P_gmin5   8.50000000    
+ P_gmin6   5.99999987E-02
+ P_gmin7   11.0000000    
+ P_Wh  0.104999997    
+ P_pHminvol   5.50000000    
+ P_pHmaxvol   8.50000000    
+ P_Vabs2   2.00000000    
+ P_Xorgmax   400.000000    
+ P_hminm  0.250000000    
+ P_hoptm  0.899999976    
+ P_alphapH   4.99999989E-03
+ P_dpHvolmax   1.00000000    
+ P_pHvols   8.60000038    
+ P_fhminsat  0.500000000    
+ P_fredkN  0.250000000    
+ P_fredlN  0.500000000    
+ P_fNCBiomin   3.99999991E-02
+ P_fredNsup  0.500000000    
+ P_Primingmax   3.00000000    
+ P_pminruis   5.00000000    
+ P_diftherm   5.36999991E-03
+ P_Bformnappe  0.769999981    
+ P_rdrain   1.00000000    
+ P_psihumin  -1.50000000    
+ P_psihucc  -2.99999993E-02
+ P_prophumtasssem   1.20000005    
+ P_prophumtassrec   1.00000000    
+ calculation of groundwater if drainage = average           1
+ P_proflabour   30.0000000    
+ P_proftravmin   5.00000000    
+ P_hminn  0.300000012    
+ P_hoptn  0.899999976    
+ P_pHminnit   4.00000000    
+ P_pHmaxnit   7.19999981    
+ nh4_min (mg N/l)   1.00000000    
+ pHminden   5.59999990    
+ pHmaxden   9.19999981    
+ wfpsc  0.620000005    
+ tdenitopt_gauss   47.0000000    
+ scale_tdenitopt   25.0000000    
+ Kd  (mg N/l)   148.000000    
+ kdesat (d-1)   3.00000000    
+ Nitrification rate dependence on NH4 : linear
+ P_fnx  0.800000012    
+ Temperature function for nitrification : Gaussian
+ tnitopt_gauss   32.5000000    
+ scale_tnitopt   16.0000000    
+ Nitrification N20 ratio : variable
+ Hourly WFPS calculation for nitrification
+ denitrification Soil parameter dependent
+ denitrification Denitrification N20 ratio variable
+ P_cmin_pdenit   1.00000000    
+ Hourly WFPS calculation for denitrification
+ P_kbio   1.21999998E-02
+ P_yres  0.620000005    
+ P_CroCo   1.00000000    
+ P_akres   0.00000000    
+ P_bkres  0.600000024    
+ P_awb   30.1000004    
+ P_bwb  -275.000000    
+ P_cwb   6.00000000    
+ P_ahres  0.910000026    
+ P_bhres   16.2000008    
+ P_CNresmin   8.00000000    
+ P_CNresmax   100.000000    
+ P_qmulchruis0   1.00000000    
+ P_mouillabilmulch  0.400000006    
+ P_kcouvmlch  0.370000005    
+ P_albedomulchresidus  0.100000001    
+ codeNmindec           2
+ rapNmindec   1.00000005E-03
+ fNmindecmin   0.100000001    
+   
+ TECHNICAL PARAMETERS NEEDED FOR THE SIMULATION, file: Ble_tec.xml
+ *********************************************************
+ P_nbjtrav            1
+ P_jultrav P_profres P_proftrav 
+    297      20.      22.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+ P_nbjres            1
+ P_julres P_coderes P_qres  P_Crespc  P_CsurNres P_Nminres  P_eaures
+    297      1      2.0     42.0     60.0      0.0      0.0                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+ P_iplt0          297
+ P_profsem    2.50000000    
+ P_densitesem    311.000000    
+ P_variete            2
+ P_effirr    1.00000000    
+ nap            5
+  P_julapI,P_doseI          495   22.2000008                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+  P_julapI,P_doseI          523   16.3999996                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+  P_julapI,P_doseI          533   20.6000004                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+  P_julapI,P_doseI          541   20.7999992                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+  P_julapI,P_doseI          546   29.2000008                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+ P_codlocirrig            1
+ P_profmes   60.0000000    
+ P_concirr    0.00000000    
+ P_engamm  0.500000000    
+ P_orgeng   46.0000000    
+ P_deneng  0.150000006    
+ P_voleng  0.150000006    
+ napN            3
+  P_julapN,P_doseN,P_engrais          417   60.0000000               1                                                                                                                                                                                                                                                                                                                                                                                                                                               
+  P_julapN,P_doseN,P_engrais          447   120.000000               1                                                                                                                                                                                                                                                                                                                                                                                                                                               
+  P_julapN,P_doseN,P_engrais          482   120.000000               1                                                                                                                                                                                                                                                                                                                                                                                                                                               
+ P_codlocferti            1
+ P_irecbutoir          700
+ P_ressuite straw+roots
+ P_code_autoressuite            2
+ harvest = all plant harvest
+ harvest when water content (fruit) <  0.140000001    
+ P_codejourdes           2
+ for an annual plant P_julvernal can not be earlier than the sowing we put it equal to sowing
+    
+ PLANT PARAMETERS NEEDED FOR THE SIMULATION
+ *********************************************************
+ P_fplt wheat_plt.xml
+ P_codeplante ble
+ monocotyledon            1
+ P_tdmin    0.00000000    
+ P_tdmax    28.0000000    
+ P_codetemp            2
+ driving temperature, crop
+ P_coeflevamf    1.00000000    
+ P_coefamflax    1.00000000    
+ P_coeflaxsen    1.00000000    
+ P_coefsenlan    1.00000000    
+ P_coeflevdrp    1.00000000    
+ P_coefdrpmat    1.00000000    
+ P_coefflodrp    1.00000000    
+ P_codephot            1
+ P_codephot_part            2
+ delay water stress before DRP stage 
+ P_stressdev   0.200000003    
+ cold requirements = vernalisation (herbaceous)
+ P_jvcmini    7.00000000    
+ P_tfroid    6.50000000    
+ P_ampfroid    10.0000000    
+ P_tgmin    0.00000000    
+ P_codeperenne            1
+ annual
+ germination or latency = yes 
+ P_stpltger    50.0000000    
+ plantlet growth = hypocotyle growth 
+ P_belong    1.20000001E-02
+ P_celong    3.20000005    
+ P_elmax    8.00000000    
+ P_nlevlim1           10
+ P_nlevlim2           50
+ P_vigueurbat   1.00000000    
+ P_phyllotherme    120.000000    
+ P_laicomp   0.303999990    
+ P_tcmin    0.00000000    
+ P_tcmax    40.0000000    
+ P_tcxstop    100.000000    
+ leaf dynamics = LAI 
+ P_vlaimax    2.20000005    
+ P_pentlaimax    5.50000000    
+ P_udlaimax    3.00000000    
+ P_ratiodurvieI   0.800000012    
+ P_ratiosen   0.800000012    
+ P_abscission    0.00000000    
+ P_parazofmorte    13.0000000    
+ P_innturgmin  -0.649999976    
+ P_dlaimin    0.00000000    
+ LAI calculation option, LAInet=LAIbrut-senes 
+ P_durviesupmax   0.400000006    
+ p%P_codetransrad           1
+ p%P_codebeso           1
+ temin=tcmin and temax=tcmax
+ P_temax    40.0000000    
+ P_teoptbis    17.0000000    
+ P_efcroijuv    2.20000005    
+ P_efcroiveg    4.25000000    
+ P_efcroirepro    4.25000000    
+ P_coefmshaut    0.00000000    
+ slamin    180.000000    
+ P_envfruit   0.100000001    
+ P_sea    0.00000000    
+ P_code_acti_reserve           2
+ growing dynamics = determinate growing plant
+ P_cgrain    3.59999985E-02
+ P_cgrainv0    0.00000000    
+ P_irazomax   0.745000005    
+ unit Harvest Index = days
+ P_irmax   0.550000012    
+ thermal stress on filling
+ P_tminremp    0.00000000    
+ P_tmaxremp    38.0000000    
+ P_sensanox    1.00000000    
+ P_stoprac sen
+ P_sensrsec   0.500000000    
+ P_contrdamax   0.300000012    
+ P_rayon    1.99999996E-02
+ root driving temperature = crop
+ root density = true density
+ P_draclong    80.0000000    
+ P_debsenrac    1000.00000    
+ P_lvfront    5.00000007E-02
+ P_longsperac    18182.0000    
+ trophic-linked production = continuous link
+ P_repracpermax   0.850000024    
+ P_repracpermin    9.00000036E-02
+ P_krepracperm   1.78999996    
+ P_parazorac   28.0000000    
+ P_tletale   -25.0000000    
+ P_tdebgel   -4.00000000    
+ plantlet or emergence frost
+ P_nbfgellev            2
+ P_tgellev90   -20.0000000    
+ leaf frost at juvenile phase (till AMF)
+ P_tgeljuv90   -20.0000000    
+ leaf frost at adult phase
+ P_tgelveg90   -10.0000000    
+ flower/fruit frost (from FLO)
+ P_tgelflo10   -4.50000000    
+ P_tgelflo90   -6.50000000    
+ P_h2ofeuilverte   0.899999976    
+ P_h2ofeuiljaune   0.150000006    
+ P_h2otigestruc   0.600000024    
+ P_h2oreserve   0.699999988    
+ P_h2ofrvert   0.400000006    
+ P_tempdeshyd    4.99999989E-03
+ water requirements = crop coefficient
+ P_kmax    1.00000000    
+ P_Vmax1    1.79999997E-03
+ P_Kmabs1    50.0000000    
+ P_Vmax2    5.00000007E-02
+ P_Kmabs2    25000.0000    
+ P_adil    5.34999990    
+ P_bdil   0.439999998    
+ P_masecNmax    1.53999996    
+ P_INNmin   0.360000014    
+ P_INNimin  -0.500000000    
+ P_inngrain1    2.99999993E-02
+ P_inngrain2    1.20000005    
+ P_bdilmax   0.439999998    
+ calculation nitrogen requirements = dense canopies (initial)
+ P_adilmax    8.50000000    
+ stadebbchplt00
+ stadebbchger05
+ stadebbchlev09
+ stadebbchamf35
+ stadebbchlax55
+ stadebbchsen85
+ stadebbchflo65
+ stadebbchdrp71
+ stadebbchdebdes75
+ stadebbchmat89
+ stadebbchrec99
+ P_codevar Talent
+ P_stlevamf    235.000000    
+ P_stamflax    260.000000    
+ P_stlevdrp    692.000000    
+ P_stflodrp    0.00000000    
+ P_stdrpdes    700.000000    
+ P_jvc    55.0000000    
+ P_sensiphot    0.00000000    
+ P_phobase    6.30000019    
+ P_phosat    20.0000000    
+ P_adens  -0.600000024    
+ P_bdens    7.00000000    
+ P_hautbase    0.00000000    
+ P_hautmax    1.20000005    
+ P_khaut  0.699999988    
+ P_durvieF    200.000000    
+ P_dlaimaxbrut    4.69999999E-04
+ P_innsen   0.170000002    
+ P_rapsenturg   0.500000000    
+ radiation interception = Beers law
+ P_extin   0.500000000    
+ P_temin    0.00000000    
+ P_teopt    12.0000000    
+ P_slamax    350.000000    
+ P_tigefeuil   0.500000000    
+ P_pgrainmaxi    3.88000011E-02
+ P_vitpropsucre    0.00000000    
+ P_vitprophuile    0.00000000    
+ P_vitirazo    1.44999996E-02
+ P_deshydbase    8.00000038E-03
+ P_nbjgrain           30
+ P_nbgrmin    6000.00000    
+ P_nbgrmax    30000.0000    
+ P_stdrpmat    700.000000    
+ P_vitircarb    1.07000005E-02
+ P_croirac   0.119999997    
+ P_tgellev10   -4.00000000      -4.00000000      -4.00000000      -4.00000000      -4.00000000      -4.00000000      -4.00000000      -4.00000000      -4.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000    
+ P_tgeljuv10   -10.0000000      -10.0000000      -10.0000000      -10.0000000      -10.0000000      -10.0000000      -10.0000000      -10.0000000      -10.0000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000    
+ P_tgelveg10   -4.50000000      -4.50000000      -4.50000000      -4.50000000      -4.50000000      -4.50000000      -4.50000000      -4.50000000      -4.50000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000       0.00000000    
+ P_psisto    15.0000000    
+ P_psiturg    4.00000000    
+ P_swfacmin  0.100000001    
+ with the option laibrut the residuel lai disappears entirely on the first day of senescence
+ no bud break if no dormancy
+ ******** file station ********
+ P_zr   2.50000000    
+ P_NH3ref   0.00000000    
+ P_concRR   1.99999996E-02
+ P_ra   50.0000000    
+ P_aangst  0.180000007    
+ P_bangst  0.620000005    
+ P_albveg  0.230000004    
+ P_latitude   48.0000000    
+ P_patm   1000.00000    
+ P_corecTrosee   1.00000000    
+ P_codeclichange           1
+ P_codeetp           1
+ P_codeetp Penman reading
+ P_alphapt   1.25999999    
+ P_codernet           2
+ P_codecaltemp           1
+ P_codaltitude           1
+ 
+ SOIL PARAMETERS 
+ *********************************************************
+ P_typsol          P_argi      P_Norg   P_profhum      P_calc        P_pH  P_concseuil    P_albedo        P_q0  P_ruisolnu  P_obstarac  P_pluiebat P_mulchbat      P_zesx      P_cfes   P_z0solnu  P_CsurNsol  P_finert  P_penterui
+ solble             23.10        0.14       22.00        0.60        7.00        0.00        0.15        6.00        0.00      200.00       50.00        0.50       60.00        5.00        0.01        0.00        0.65        0.33                      
+   P_codecailloux P_codemacropor P_codefente P_codrainage P_coderemontcap P_codenitrif P_codedenit
+ (1 active , 2 inactive)
+                2               2               2               2               2               2               2                                                                                                                                          
+   P_profimper P_ecartdrain P_ksol P_profdrain P_capiljour P_humcapil P_profdenit P_vpotdenit
+         10.00         0.00         0.00         0.00         0.00        10.00        20.00         2.00                                                                                                                                                  
+          P_epc        P_hccf       P_hminf         P_daf      P_cailloux  P_typecailloux     P_infil         P_epd
+          15.00         24.50         13.00          1.20          0.00             1         50.00            10                                                                                                                                          
+          15.00         24.50         13.00          1.40          0.00             1         50.00            10                                                                                                                                          
+          30.00         21.50         12.00          1.50          0.00             1         50.00            10                                                                                                                                          
+          30.00         19.50         12.00          1.73          0.00             1         50.00            10                                                                                                                                          
+          30.00         19.50         12.00          1.73          0.00             1         50.00            10                                                                                                                                          
+    
+ Parameters of param_newform
+ *********************************************
+ calculation of hourly dew temperature : linear interpolation(actual calculation)
+ P_humirac           1
+ obstarac too big : obstarac = soil depth
+ 
+ *********************************************
+ INITIALISATIONS PLANT
+ codeinstal :            0
+ masec(0) :    0.00000000       0.00000000       0.00000000    
+ lai(0) :    0.00000000       0.00000000       0.00000000    
+ P_QNplantenp0 :    0.00000000       0.00000000       0.00000000    
+ P_zrac0 :    0.00000000    
+ P_stade0 : snu
+ INN0 :    0.00000000       0.00000000       0.00000000    
+
+-------------------------------------------------------------------------------
+
+ Attention humcapil  > hcc : risk of excess water
+ The simulation runs but the day of incorporation of residues is later than the sowing date.
+ The simulation runs but the day of soil cultivation operations is later than the sowing date.
+Initial values over the soil depth ( 60 cm):     SWC =  70. mm     SMN = 10.0 kg N/ha
+ problem with your profile output dates --> they have been recalculated
+ Program end ... 
+ -----------------------------------------------------------------------------------------
+ Stics history file end            End date: 2023/10/10-09:00:39
+ -----------------------------------------------------------------------------------------

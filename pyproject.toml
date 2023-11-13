@@ -1,0 +1,50 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pystics"
+version = "0.1.1"
+description = "STICS in Python"
+authors = [{ name = "Etienne Perez", email = "eperez@ombrea.fr" }]
+requires-python = ">=3.8, <3.12"
+classifiers = [
+    'Development Status :: 4 - Beta',
+    'Intended Audience :: Science/Research',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Topic :: Scientific/Engineering',
+]
+dependencies = [
+    "pandas<2",
+    "pyeto@git+https://github.com/woodcrafty/PyETo.git",
+    "scipy",
+    "pvlib",
+    "matplotlib",
+    "ecmwflibs",
+    "pyephem",
+    "zarr",
+    "dask",
+    "xarray>=2022.8.0",
+    "s3fs>=2023.8.2",
+    "scikit-learn>=1.2.1",
+    "xmltodict",
+
+]
+
+[project.optional-dependencies]
+test = ["pytest>=5.0.0", "pytest-cov"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.isort]
+profile = "black"
+known_first_party = "pystics"
+
+[tool.black]
+line_length = 88
+target-version = ['py38']
