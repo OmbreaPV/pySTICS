@@ -13,8 +13,6 @@ Two simulation types are possible :
 
 
 # How to use pySTICS
-## Clone gitlab repository and install pystics in a conda environment
-
 1. Create and activate a conda environment:```console
 conda create --name envi_name  python=3.11 pip
 conda activate envi_name
