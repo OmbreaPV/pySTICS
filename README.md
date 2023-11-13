@@ -13,12 +13,13 @@ Two simulation types are possible :
 
 
 # How to use pySTICS
-1. Create and activate a conda environment:```console
+1. Create and activate a conda environment:
+```
 conda create --name envi_name  python=3.11 pip
 conda activate envi_name
 ```
 2. Clone repository and install pystics with pip:
-```console
+```
 git clone git@github.com:OmbreaPV/pySTICS.git
 cd pySTICS
 pip install -e .
