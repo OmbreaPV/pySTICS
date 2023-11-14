@@ -1,0 +1,6 @@
+sphinx
+furo
+nbsphinx
+nbsphinx-link
+ipython
+sphinx-copybutton

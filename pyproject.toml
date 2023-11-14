@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "pystics"
-version = "0.1.1"
+dynamic = ["version"]
 description = "STICS in Python"
 authors = [{ name = "Etienne Perez", email = "eperez@ombrea.fr" }]
 requires-python = ">=3.8, <3.12"
@@ -32,14 +32,20 @@ dependencies = [
     "s3fs>=2023.8.2",
     "scikit-learn>=1.2.1",
     "xmltodict",
-
 ]
+
+[project.urls]
+Homepage = "https://github.com/OmbreaPV/pySTICS"
+Documentation = "https://OmbreaPV.github.io/pySTICS"
 
 [project.optional-dependencies]
 test = ["pytest>=5.0.0", "pytest-cov"]
 
 [tool.hatch.metadata]
 allow-direct-references = true
+
+[tool.hatch.version]
+path = "src/pystics/_version.py"
 
 [tool.isort]
 profile = "black"
