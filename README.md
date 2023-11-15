@@ -2,10 +2,10 @@
 <img width="740" alt="OMBREA(16)" src="https://github.com/OmbreaPV/pySTICS/assets/105670904/d68a7c73-4bb7-4a15-8385-dd82508ce496">
 
 
-Python Implementation of the STICS crop model (https://eng-stics.paca.hub.inrae.fr).
+Python Implementation of a simplified [STICS crop model](https://eng-stics.paca.hub.inrae.fr).
 
 # Notebook examples
-See Notebooks/run_simulation.ipynb to see a simulation example on wheat.
+See [run_simulation.ipynb](Notebooks/run_simulation.ipynb) to see a simulation example on wheat.
 
 Two simulation types are possible :
 - Simulation from STICS USM examples associated to a species and variety chosen by the user.
@@ -13,12 +13,12 @@ Two simulation types are possible :
 
 
 # How to use pySTICS
-1. Create and activate a conda environment:
+1. Create and activate a conda environment (or use your prefered environment manager):
 ```
-conda create --name envi_name  python=3.11 pip
-conda activate envi_name
+conda create --name pystics python=3.11 pip
+conda activate pystics
 ```
-2. Clone repository and install pystics with pip:
+2. Clone repository and install pystics with pip (here in development mode):
 ```
 git clone git@github.com:OmbreaPV/pySTICS.git
 cd pySTICS
