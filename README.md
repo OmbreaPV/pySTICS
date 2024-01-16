@@ -2,7 +2,7 @@
 <img width="740" alt="OMBREA(16)" src="https://github.com/OmbreaPV/pySTICS/assets/105670904/d68a7c73-4bb7-4a15-8385-dd82508ce496">
 
 
-Python Implementation of a simplified [STICS crop model](https://eng-stics.paca.hub.inrae.fr).
+Python Implementation of a simplified version of [STICS crop model](https://eng-stics.paca.hub.inrae.fr).
 
 # Notebook examples
 See [run_simulation.ipynb](Notebooks/run_simulation.ipynb) to see a simulation example on wheat.
