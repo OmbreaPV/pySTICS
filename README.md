@@ -4,6 +4,9 @@
 
 Python Implementation of a simplified version of [STICS crop model](https://eng-stics.paca.hub.inrae.fr).
 
+# Implementation progress
+![](https://github.com/OmbreaPV/pySTICS/blob/e8d41405772a5c036d72f4e8a1265594391a4564/docs/source/_static/table_progress.png)
+
 # Notebook examples
 See [run_simulation.ipynb](Notebooks/run_simulation.ipynb) to see a simulation example on wheat.
 
