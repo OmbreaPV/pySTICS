@@ -2,10 +2,9 @@
 <img width="740" alt="OMBREA(16)" src="https://github.com/OmbreaPV/pySTICS/assets/105670904/d68a7c73-4bb7-4a15-8385-dd82508ce496">
 
 
-Python Implementation of a simplified version of [STICS crop model](https://eng-stics.paca.hub.inrae.fr).
-
-# Implementation progress
-![](https://github.com/OmbreaPV/pySTICS/blob/08b222dc3a7c3796d4c9971134d5a1b77d46d562/docs/source/_static/table_progress.png)
+PySTICS is a Python implementation of a simplified version of [STICS v10.0 crop model](https://eng-stics.paca.hub.inrae.fr).
+Full-version or simplified modules are currently being implemented with a focus on determinate crops and water deficit effect.
+![](https://github.com/OmbreaPV/pySTICS/blob/f29772c30cadb4847ad3e43852a780007e2bd2e1/docs/source/_static/table_progress.png)
 
 # Notebook examples
 See [run_simulation.ipynb](Notebooks/run_simulation.ipynb) to see a simulation example on wheat.
