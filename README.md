@@ -26,3 +26,6 @@ git clone git@github.com:OmbreaPV/pySTICS.git
 cd pySTICS
 pip install -e .
 ```
+
+# Inquiries
+Contact: Etienne Perez - eperez@ombrea.fr
