@@ -1,4 +1,3 @@
-from pystics.tasks import run_stics_simulation
-from pystics._version import __version__
+from pystics.simulation import run_pystics_simulation
 
-__all__ = ["run_stics_simulation"]
+__all__ = ["run_pystics_simulation"]

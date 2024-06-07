@@ -1,0 +1,49 @@
+:nbplantes:
+1
+:plante:
+snu
+0.0
+0.0
+0.0
+code_acti_reserve
+2
+0
+0
+0
+0
+0.0
+0.0
+0.0
+:densinitial:
+0.0 0.0 0.0 0.0 0.0 
+:plante:
+
+
+
+
+code_acti_reserve
+2
+0
+0
+0
+0
+
+
+
+:densinitial:
+     
+:Hinitf:
+3.0 5.0 12.0 12.0 12.0 
+:NO3initf:
+3.1 2.9 4.0 0.0 0.0 
+:NH4initf:
+0.0 0.0 0.0 0.0 0.0 
+:snow:
+Sdepth0
+0.0
+Sdry0
+0.0
+Swet0
+0.0
+ps0
+0.0

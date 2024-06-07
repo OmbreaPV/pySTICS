@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<initialisations version="10.0">
+  <nbplantes>1</nbplantes>
+  <plante dominance="1">
+    <stade0>snu</stade0>
+    <lai0>0</lai0>
+    <magrain0>0</magrain0>
+    <zrac0>0</zrac0>
+    <option choix="2" nom="Simulation of Nitrogen and Carbon reserves" nomParam="code_acti_reserve">
+      <choix code="1" nom="yes">
+        <maperenne0>0</maperenne0>
+        <QNperenne0>0</QNperenne0>
+        <masecnp0>0</masecnp0>
+        <QNplantenp0>0</QNplantenp0>
+      </choix>
+      <choix code="2" nom="no">
+        <masec0>0</masec0>
+        <QNplante0>0</QNplante0>
+        <restemp0>0</restemp0>
+      </choix>
+    </option>
+    <densinitial>
+      <horizon nh="1">0</horizon>
+      <horizon nh="2">0</horizon>
+      <horizon nh="3">0</horizon>
+      <horizon nh="4">0</horizon>
+      <horizon nh="5">0</horizon>
+    </densinitial>
+  </plante>
+  <plante dominance="2">
+    <stade0/>
+    <lai0/>
+    <magrain0/>
+    <zrac0/>
+    <option choix="2" nom="Simulation of Nitrogen and Carbon reserves" nomParam="code_acti_reserve">
+      <choix code="1" nom="yes">
+        <maperenne0>0</maperenne0>
+        <QNperenne0>0</QNperenne0>
+        <masecnp0>0</masecnp0>
+        <QNplantenp0>0</QNplantenp0>
+      </choix>
+      <choix code="2" nom="no">
+        <masec0/>
+        <QNplante0/>
+        <restemp0/>
+      </choix>
+    </option>
+    <densinitial>
+      <horizon nh="1"/>
+      <horizon nh="2"/>
+      <horizon nh="3"/>
+      <horizon nh="4"/>
+      <horizon nh="5"/>
+    </densinitial>
+  </plante>
+  <sol>
+    <Hinitf>
+      <horizon nh="1">0</horizon>
+      <horizon nh="2">0</horizon>
+      <horizon nh="3">0</horizon>
+      <horizon nh="4">0</horizon>
+      <horizon nh="5">0</horizon>
+    </Hinitf>
+    <NO3initf>
+      <horizon nh="1">10</horizon>
+      <horizon nh="2">10</horizon>
+      <horizon nh="3">0</horizon>
+      <horizon nh="4">0</horizon>
+      <horizon nh="5">0</horizon>
+    </NO3initf>
+    <NH4initf>
+      <horizon nh="1">0</horizon>
+      <horizon nh="2">0</horizon>
+      <horizon nh="3">0</horizon>
+      <horizon nh="4">0</horizon>
+      <horizon nh="5">0</horizon>
+    </NH4initf>
+  </sol>
+  <snow>
+    <Sdepth0>0.0</Sdepth0>
+    <Sdry0>0.0</Sdry0>
+    <Swet0>0.0</Swet0>
+    <ps0>0.0</ps0>
+  </snow>
+</initialisations>
+
