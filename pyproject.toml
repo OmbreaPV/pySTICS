@@ -20,6 +20,7 @@ classifiers = [
 ]
 dependencies = [
     "pandas<2",
+    "pyeto@git+https://github.com/woodcrafty/PyETo.git",
     "scipy",
     "pvlib",
     "matplotlib",
