@@ -5,7 +5,7 @@
 pySTICS is an open-source collaborative Python implementation of a simplified version of [STICS v10.0 crop model](https://stics.inrae.fr/). This project is supported by Ombrea (https://www.ombrea.fr/), the international agri-energy centre of expertise of Total Energies, and the Digital Energy and Agriculture Lab, from the University of Liege.
 
 
-This model is being developed and tested in the context of agronomic impact modelling of agrivoltaic projects , but is even more valid for openfield plots as STICS model was designed and calibrated in such conditions.
+pySTICS is being developed and tested in the context of agronomic impact modelling of agrivoltaic projects, but is even more valid for openfield plots as STICS model was designed and calibrated in such conditions.
 
 For any inquiries or collaboration opportunity, feel free to reach:
 - Ombrea : Etienne Perez - eperez@ombrea.fr
@@ -17,7 +17,7 @@ pySTICS v1.0 includes STICS v10.0 main modules for determinate growth plants and
 
 The figure below shows the different modules implemented and simplifications made. For the modules description, please refer to STICS documentation ([Beaudoin N. et al.2022. STICS soil-crop model. Conceptual framework, equations and use. Editions Qae.](docs/source/_static/STICS%20soil-crop%20mode,%20Conceptual%20framework,%20equations%20and%20uses.html)). 'Full version' means that the module has been implemented as described in STICS documentation without major simplifying approach. 
 
-![](https://github.com/OmbreaPV/pySTICS/blob/f29772c30cadb4847ad3e43852a780007e2bd2e1/docs/source/_static/table_modules.png)
+![](https://github.com/OmbreaPV/pySTICS/blob/2b419b0c92a3789dcfa86b6fd7cb018d5160caf2/docs/source/_static/table_modules.png)
 
 
 # Notebook examples
