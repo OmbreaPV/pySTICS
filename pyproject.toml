@@ -24,6 +24,7 @@ dependencies = [
     "scipy",
     "pvlib",
     "matplotlib",
+    "unidecode",
     "zarr",
     "xarray>=2022.8.0",
     "scikit-learn>=1.2.1",
