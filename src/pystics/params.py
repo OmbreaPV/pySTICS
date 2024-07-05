@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import xmltodict
 import inspect
-import xarray as xr
 from unidecode import unidecode
 import pkg_resources
 
@@ -294,7 +293,7 @@ class SoilParams:
     """
 
     source: str = ''
-    ds: xr.DataArray = xr.DataArray() # dataset with soil parameters in different locations in France
+    ds = None # dataset with soil parameters in different locations in France
     file_path: str = ''
     soil_name: str = ''
     latitude: float = 0.
@@ -430,6 +429,7 @@ class SoilParams:
         This function retrieves soil parameters values from a xarray dataset based on location. The soil considered has only one layer (parameters are homogeneous on whole depth).
         '''
 
+        #Needs xarray installed : pip install xarray
         selec = self.ds.sel(x=self.longitude, y=self.latitude, method = "nearest")
 
         for attr in ['EPC','DAF','HMINF','HCCF']:
