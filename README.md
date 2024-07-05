@@ -32,12 +32,13 @@ Two notebook examples are available to understand how to run your simulations:
 conda create --name pystics python=3.11 pip
 conda activate pystics
 ```
-2. Clone repository and install pystics with pip (here in development mode):
+2. Install from PyPI
+```
+pip install pySTICS
+```
+2bis. Or clone the repository to install it in development mode:
 ```
 git clone git@github.com:OmbreaPV/pySTICS.git
-```
-3. Install pystics with pip (here in development mode):
-```
 cd pySTICS
 pip install -e .
 ```
