@@ -19,15 +19,9 @@ classifiers = [
     'Topic :: Scientific/Engineering',
 ]
 dependencies = [
-    "pandas<2",
-    "pyeto@git+https://github.com/woodcrafty/PyETo.git",
-    "scipy",
-    "pvlib",
+    "pandas",
     "matplotlib",
     "unidecode",
-    "zarr",
-    "xarray>=2022.8.0",
-    "scikit-learn>=1.2.1",
     "xmltodict",
 ]
 
