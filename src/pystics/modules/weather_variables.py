@@ -66,7 +66,7 @@ def compute_weather_variables(df, station, gamma):
 
     
     # Photoperiod & daylength
-    df[['phoi','daylen']] = df.doy.apply(lambda x:photoperiod(station.LATITUDE, x))
+    df[['phoi','daylen']] = df.doy.apply(lambda x: pd.Series(photoperiod(station.LATITUDE, x)))
 
     # Hourly temperature
     if 'hourly_temp' not in df.columns:

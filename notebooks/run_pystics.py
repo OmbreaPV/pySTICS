@@ -1,21 +1,42 @@
 # %%
-import pystics  
+import pystics
+import pandas as pd
+import numpy as np
+from pystics.simulation import run_pystics_simulation
+import seaborn as sns
+import matplotlib.pyplot as plt
 # %%
 ##### Choice of species and variety --> the USM associated to the species 
 species = 'wheat'
 variety = 'Talent'
 # %%
-##### Run a simulation
-
 # Read example input files from STICS for the USM associated to chosen species and variety
 from pystics.params import parametrization_from_stics_example_files
 weather, crop, manage, soil, station, constants, initial = parametrization_from_stics_example_files(species, variety)
-station
+station.CODECALTEMP = 1
+weather['wind'] = np.abs(np.round(np.random.normal(2.5, 1, weather.shape[0]), 1))
+sns.histplot(data=weather, x='wind')
 # %%
 # Run the simulation
-from pystics.simulation import run_pystics_simulation
-pystics_df, pystics_mat_list = run_pystics_simulation(weather, crop, soil, constants, manage, station, initial)
+pystics_df1, pystics_mat_list = run_pystics_simulation(weather, crop, soil, constants, manage, station, initial)
 # %%
+station.CODECALTEMP = 2
+pystics_df2, pystics_mat_list = run_pystics_simulation(weather, crop, soil, constants, manage, station, initial)
+# %%
+# pystics_df['']
+# plot_df = pd.concat([pystics_df1.tcult,pystics_df2.tcult])
+sns.kdeplot(data=pystics_df1, x='tcult', label='codecaltemp = 1')
+sns.kdeplot(data=pystics_df2, x='tcult', label='codecaltemp = 2')
+plt.legend()
+# %%
+pystics_df1['Date'] = pd.to_datetime(pystics_df1.year.astype(int) * 1000 + pystics_df1.doy, format='%Y%j')
+pystics_df2['Date'] = pd.to_datetime(pystics_df2.year.astype(int) * 1000 + pystics_df2.doy, format='%Y%j')
+sns.lineplot(data=pystics_df1, x='Date', y='tcult')
+sns.lineplot(data=pystics_df2, x='Date', y='tcult')
+# %%
+###################################
+############### old ###############
+###################################
 # Yield (t.ha-1)
 pystics_df.mafruit.max()
 # %%
