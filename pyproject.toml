@@ -25,6 +25,11 @@ dependencies = [
     "xmltodict",
 ]
 
+[project.optional-dependencies]
+test = [
+    "pytest",
+]
+
 [project.urls]
 Homepage = "https://github.com/OmbreaPV/pySTICS"
 Documentation = "https://OmbreaPV.github.io/pySTICS"
