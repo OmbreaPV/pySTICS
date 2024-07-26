@@ -13,10 +13,9 @@ def initialize_outputs_df(weather, crop, manage, initial):
     # All computed variables initialized to zero
     colonnes_nulles = [
         'deltaz','zrac','ulai','deltai_dev','deltai_stress','deltai',
-        'lai','laisen','dayLAIcreation','eos','flagrain','seos','flagphase','ses','es_a','esol_sum','zdemi',
-        'cumlracz','ep_sum','dltams','masec',
+        'lai','laisen','dayLAIcreation','eos','flagrain','zdemi',
+        'cumlracz','dltams','masec',
         'eo','eop','teta','ep','swfac',
-        "maxlai_sofar",
         "nbgrains",
         "nbgraingel",
         "pgrain",
@@ -86,31 +85,27 @@ def initialize_outputs_df(weather, crop, manage, initial):
         "lev",
         "flo",
         "nou",
+        'lan',
         "drp",
         "udevcult",
         "udevcult_lev",
         "rfpi",
         "jvi",
-        "sum_dcdays",
         "plt",
         "ger",
-        "jvi_cum",
         "rfvi",
-        "upvt_ger_flo",
-        "sum_upvt_ger_flo",
         "lax",
         "amf",
         "mat",
         "upvt_post_lev",
         "sum_upvt_post_lev",
-        "sum_upvt",
         "ebmax",
         "tetstomate",
         "teturg",
         "gdh",
         "findorm",
         "cu",
-        "deltaidens",
+        "deltai_dens",
         "deltai_t",
         "esol",
         "stemflow",
@@ -137,28 +132,27 @@ def initialize_outputs_df(weather, crop, manage, initial):
         "edirectm",
         "edirect",
         'dltamstombe','mafeuiltombe', 'nbjgrauto','amplsurf',
-        'terme1','terme2','terme3',
         'psibase', 'moist', 'deltaz_t',
         'teaugrain', 'debdes',
-        'drained_water',
+        'drain',
         'deltaz_stress',
         'somger', 'densite','elong',
         'nbfeuille', 'somfeuille','nbjhumec','let','fgellev',
         'fgelflo','ftemp','ftempremp',
         'water_content_max_criteria', 'water_content_min_criteria', 'maturity_criteria',
         'coeflev',
-        'efdensite', 'fgelveg','fgeljuv',
-        'compute_airg','somcourdrp',
+        'efdensite',
+        'compute_airg',
         'somsenreste',
         'efda',
-        'humirac_mean',
         'znonli',
         'vmax',
         'msrec_fou', 'masectot', 'masecneo', 'msresjaune', 'msneojaune','deltamsresen', 'msres',
         'hur_0_10_cm','hur_10_20_cm','hur_20_30_cm','hur_30_40_cm','hur_40_50_cm','hur_50_60_cm',
         'water_stress_day','water_stress_day_value','thermal_stress_day','thermal_stress_day_value',
         'sumes0','sumes1','sumes2','ses2j0','sesj0','smes02','nstoc','stoc',
-        'resrac'
+        'resrac', 'humirac_mean',
+        'cumdltaremobil','sla','somcour', 'tursla', 'rec'
         
     ]
 
@@ -176,6 +170,8 @@ def initialize_outputs_df(weather, crop, manage, initial):
 
     # Initialize stem.leaf ratio to initial value
     df["ratiotf"] = crop.TIGEFEUIL
+
+    df['vernalisation_ongoing'] = False
 
     # For indeterminate growth variables, initialize variables depending on plant parameters
     for K in range(crop.NBOITE):
@@ -224,7 +220,7 @@ def initialize_soil_matrix(nb_day, soil, initial, outputs, manage):
 
     # Root length density profile
     LRACZ_MATRIX = np.empty((nb_day, soil.DEPTH))
-    LRACZ_MATRIX[:] = np.nan
+    LRACZ_MATRIX[:] = 0
 
     LRACZ_MATRIX[0,0:soil.EPC_1] = initial.DENSINITIAL_1
     if soil.EPC_2 != 0:
@@ -267,7 +263,7 @@ def initialize_soil_matrix(nb_day, soil, initial, outputs, manage):
     EPZ_MATRIX = np.empty(
         (nb_day, soil.DEPTH)
     )
-    EPZ_MATRIX[:] = np.nan
+    EPZ_MATRIX[:] = 0
 
     # Microporosity elementary layer soil water content profile
     HUR_MATRIX = np.empty(
@@ -283,6 +279,9 @@ def initialize_soil_matrix(nb_day, soil, initial, outputs, manage):
         HUR_MATRIX[0,soil.EPC_1+soil.EPC_2+soil.EPC_3:soil.EPC_1+soil.EPC_2+soil.EPC_3+soil.EPC_4] = initial.HINITF_4 * soil.DAF_4
     if soil.EPC_5 != 0:
         HUR_MATRIX[0,soil.EPC_1+soil.EPC_2+soil.EPC_3+soil.EPC_4:soil.EPC_1+soil.EPC_2+soil.EPC_3+soil.EPC_4+soil.EPC_5] = initial.HINITF_5 * soil.DAF_5
+
+    # If no intial value --> HCCF
+    HUR_MATRIX[0] = np.where(HUR_MATRIX[0]==0, soil.HCC, HUR_MATRIX[0])
 
     # Soil water availability index profile
     WI_MATRIX = np.empty(

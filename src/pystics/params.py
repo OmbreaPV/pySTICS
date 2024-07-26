@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import xmltodict
 import inspect
+import xarray as xr
 from unidecode import unidecode
 import pkg_resources
 
@@ -35,7 +36,7 @@ class CropParams:
     ZPENTE: int = 100
     ZPRLIM: int = 150
 
-    forage: bool = False
+    CODEPLANTE: str = ''
     CODEPERENNE: int = 0
     CODEINDETERMIN: int = 0
     HERBACEOUS : bool = True
@@ -180,6 +181,12 @@ class CropParams:
     CONTRDAMAX: float = 0.
     COEFMSHAUT: float = 0.
     KHAUT: float = 0.
+    JULVERNAL: float = 0.
+    ENVFRUIT: float = 0
+    CODEPHOT_PART: int = 0
+    TUSTRESSMIN: float = 0.
+    DURVIESUPMAX: float = 0.
+    STOPRAC: str = ''
 
     STOPFEUILLE: float = field(init=False)
 
@@ -194,7 +201,6 @@ class CropParams:
         if self.xml_folder_path == '':
             self.xml_folder_path = PARAMS_FOLDER + '/plant'
         
-        # When no file_path is given, we read XML file stored in parametrization_files (provided by STICS project team).
         if self.file_path == '':
             species_to_plant_files = {'wheat' : 'wheat_plt' if unidecode(self.variety.lower()) in ['arminda','talent','thesee','soissons','promentin','sideral','thetalent','thesarmin','shango'] else f'DurumWheat_{self.variety.upper()}_plt',
                                       'rapeseed' : 'rapeseed_plt',
@@ -202,7 +208,23 @@ class CropParams:
                                       'alfalfa' : 'proto_alfalfa_plt',
                                       'fescue' : 'proto_fescue_plt',
                                       'timothy' : 'timothy_plt',
-                                      'barley':'proto_barley_plt'}
+                                      'barley':'proto_barley_plt',
+                                      'sorghum':'proto_sorghum_plt',
+                                      'soybean':'proto_soybean_plt',
+                                      'sunflower':'proto_sunflower_plt',
+                                      'winter_barley':'proto_winterbarley_plt',
+                                      'pea':'pea_plt',
+                                      'oat':'BristleOat_CoverCrop_plt',
+                                      'clover':'CrimsonClover_CoverCrop_plt',
+                                      'grass':'grass_plt',
+                                      'ryegrass':'ryegrass_CoverCrop_plt',
+                                      'mustard':'mustard_CoverCrop_plt',
+                                      'alfalfa':'proto_alfalfa_plt',
+                                      'fescue':'proto_fescue_plt',
+                                      'flax':'proto_flax_plt',
+                                      'timothy':'timothy_plt',
+                                      'vesce':'vetch_CoverCrop_plt', # vesce (fève, féverolle)
+                                        }
             self.file_path = self.xml_folder_path + f"/{species_to_plant_files[f'{self.species.lower()}']}.xml"
 
         # Retrieve parameters values from XML file.
@@ -228,7 +250,6 @@ class CropParams:
         self.HERBACEOUS = True if self.CODEPERENNE == 1 else False
         if (self.species.lower() in ['fescue', 'alfalfa', 'timothy', 'dactyle']) | (self.variety.lower() in ['dactyle']):
             self.HERBACEOUS = True
-            self.forage = True
         
         if self.CODLAINET == 2:
             self.DLAIMAX = self.DLAIMAXBRUT
@@ -254,6 +275,11 @@ class CropParams:
         self.__setattr__('STOPRAC',r[r_attr.index('STOPRAC')][1].upper())
         del r[r_attr.index('STOPRAC')]
         del r_attr[r_attr.index('STOPRAC')]
+
+        # codeplante parameter
+        self.__setattr__('CODEPLANTE',r[r_attr.index('CODEPLANTE')][1].upper())
+        del r[r_attr.index('CODEPLANTE')]
+        del r_attr[r_attr.index('CODEPLANTE')]
         
         # Set values in dataclass fields
         for i, attr in zip(r,r_attr):
@@ -267,7 +293,7 @@ class CropParams:
             self.__setattr__(attr,num(i[1]))
 
         # 3. Extract variety-specific parameters
-        if any(i in self.file_path for i in ['wheat_plt','corn_plt','rapeseed_plt', 'timothy_plt']):
+        if any(i in self.file_path for i in ['wheat_plt','corn_plt','rapeseed_plt', 'timothy_plt', 'proto_barley']):
             for i in dico['fichierplt']['formalisme'][14]['tv']['variete']:
                 if unidecode(i['@nom'].lower()) == unidecode(self.variety.lower()):
                     results3 = list(set(gen_dict_extract('#text','@nom',i)))
@@ -293,7 +319,7 @@ class SoilParams:
     """
 
     source: str = ''
-    ds = None # dataset with soil parameters in different locations in France
+    ds: xr.DataArray = xr.DataArray() # dataset with soil parameters in different locations in France
     file_path: str = ''
     soil_name: str = ''
     latitude: float = 0.
@@ -429,7 +455,6 @@ class SoilParams:
         This function retrieves soil parameters values from a xarray dataset based on location. The soil considered has only one layer (parameters are homogeneous on whole depth).
         '''
 
-        #Needs xarray installed : pip install xarray
         selec = self.ds.sel(x=self.longitude, y=self.latitude, method = "nearest")
 
         for attr in ['EPC','DAF','HMINF','HCCF']:
@@ -443,6 +468,9 @@ class SoilParams:
 
         self.Q0 = float(selec["Q0"].values)
         self.ARGI = float(selec["clay"].values)
+        self.SAND = float(selec["sand"].values)
+        self.SILT = float(selec["silt"].values)
+        self.CLAY = float(selec["clay"].values)
 
 
 @dataclass

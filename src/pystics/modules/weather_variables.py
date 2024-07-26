@@ -2,7 +2,7 @@ import math
 import pandas as pd
 import numpy as np
 from datetime import datetime
-from .et0 import fao
+from pyeto import fao
 import ast
 from ..exceptions import pysticsException
 from pystics.modules.water.potential_evapotranspiration import potential_etp

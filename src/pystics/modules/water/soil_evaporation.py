@@ -144,21 +144,20 @@ def soil_layers_contribution_to_evaporation(esol, zesx, hurlim, cfes, hcc, wi_i,
     '''
     
     sum = 0
-    for z_index in range(zesx):
 
-        # Soil water availability and soil contribution to evaporation
-        if cfes > 0:
-            wi_i[z_index] = (hur_i[z_index] - hurlim) / (hcc[z_index] - hurlim)
-            esz_i[z_index] = wi_i[z_index] * (1.-z_index/zesx)**(abs(cfes))
+    # Soil water availability and soil contribution to evaporation
+    if cfes > 0:
+        wi_i[range(zesx)] = (hur_i[range(zesx)] - hurlim) / (hcc[range(zesx)] - hurlim)
+        esz_i[range(zesx)] = wi_i[range(zesx)] * (1.-np.array([z_index for z_index in range(zesx)])/zesx)**(abs(cfes))
+        sum = esz_i[range(zesx)].sum()
 
-        sum = sum + esz_i[z_index]
 
     if sum == 0:
         sum = 1
         esol = 0
     else:
         esz_i = esz_i * esol / sum
-
+    
     esz_i[zesx:] = 0 
 
     # Check if soil layer contribution does not exceed available water

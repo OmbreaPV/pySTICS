@@ -27,12 +27,17 @@ def senescence(i, lev, ulai, somtemp, vlaimax, durviei, durvief, senfac_prev, ud
 
         # Stress index affecting senescence
         senstress_list[i] = min(senfac_prev, fstressgel)
+
         if codlainet == 1:
             senstress_list[i] = 1
 
         # Update lifespan of all non-senescent leaf areas
         for j in range(int(dayLAIcreation_list[i]),i):
             durvie_list[j] = min(durvie_list[j], durage_list[j] * senstress_list[i])
+
+            # if (amf_list[j] == 1) & (java_inn > 1):
+            #     durviesup = durvief * min(durviesupmax, java_inn-1)
+            #     durvie_list[j] = durvie_list[j] + durviesup
         
         # Lifespan of leaf area produced on day i
         if (ulai <= vlaimax):
@@ -41,6 +46,10 @@ def senescence(i, lev, ulai, somtemp, vlaimax, durviei, durvief, senfac_prev, ud
             durage_list[i] = durviei + (durvief - durviei) * (ulai - vlaimax) / (3 - vlaimax)
 
         durvie_list[i] = durage_list[i] * senstress_list[i]
+
+        # if (amf_list[i] == 1) & (java_inn > 1):
+        #     durviesup = durvief * min(durviesupmax, java_inn-1)
+        #     durvie_list[i] = durvie_list[i] + durviesup
 
         # Development temperature (to compare to lifespan)
         tdevelop_list[i] = 2**(udevcult/10)
@@ -88,7 +97,7 @@ def senescence(i, lev, ulai, somtemp, vlaimax, durviei, durvief, senfac_prev, ud
             somsenreste = somsen # fortran je comprends pas le sens de ce reste
         
         # Update oldest non-senescent deltai
-        dayLAIcreation_list[i+1] = dayLAIcreation_list[i] + nb_deltai_senescent
+        dayLAIcreation_list[i] = dayLAIcreation_list[i] + nb_deltai_senescent
 
     return dayLAIcreation_list, durage_list, senstress_list, tdevelop_list, durvie_list, dltaisen, somsenreste, ndebsen, somtemp, dltamsen, deltamsresen, msres, msresjaune, durvie_list[i]
 
@@ -96,6 +105,8 @@ def senescence_stress(lev_i, ulai, vlaimax, temp_min_prev, tgeljuv10, tgeljuv90,
     '''
     This module computes frost stress affecting senescence.
     '''
+    
+    fstressgel = 1
 
     if lev_i > 0:
         

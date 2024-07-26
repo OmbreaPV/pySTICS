@@ -17,6 +17,6 @@ def water_balance(trr, airg, mouill, depth, hur_i, epz_i_prev, esz_i, hcc, hurli
         if hur_i[z_index] < hurlim:
             hur_i[z_index] = hurlim
         dispo = max(0,dispo - distr)
-    drained_water = dispo
+    drain = dispo
 
-    return hur_i, drained_water
+    return hur_i, drain
