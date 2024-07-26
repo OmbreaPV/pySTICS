@@ -46,7 +46,7 @@ def compute_outputs_day_zero(outputs, crop, soil, manage, constants, initial, st
 
     ## 2. Development temperature
     if outputs.loc[0,'plt'] == 1:
-        outputs.loc[0,'udevcult'], outputs.loc[0,'somtemp'] = development_temperature(outputs.loc[0,'temp'], outputs.loc[0,'temp'], crop.TDMAX, crop.TDMIN, crop.TCXSTOP, crop.CODERETFLO, crop.STRESSDEV, 1, crop.CODETEMP, outputs.loc[0,'somtemp'])
+        outputs.loc[0,'udevcult'], outputs.loc[0,'somtemp'] = development_temperature(outputs.loc[0,'temp'], outputs.loc[0,'temp'], crop.TDMAX, crop.TDMIN, crop.TCXSTOP, crop.CODERETFLO, crop.STRESSDEV, 1, crop.CODETEMP, outputs.loc[0,'somtemp'], outputs.loc[0,'drp'])
 
     ## 3. Effect of photoperiod
     if crop.CODEPHOT == 1:
@@ -55,22 +55,25 @@ def compute_outputs_day_zero(outputs, crop, soil, manage, constants, initial, st
         outputs.loc[0,'rfpi'] = 1
 
     ## 4. Effect of vernalisation
-    outputs.loc[0,'rfvi'], outputs.loc[0,'jvi'] = vernalisation_effect(crop.HERBACEOUS, crop.CODEBFROID, outputs.loc[0,'ger'], crop.TFROID, outputs.loc[0,'temp'], crop.AMPFROID, outputs.loc[0,'jvi'], crop.JVCMINI, crop.JVC, outputs.loc[0,'findorm'])
+    outputs.loc[0,'rfvi'], outputs.loc[0,'jvi'], outputs.loc[0,'vernalisation_ongoing'] = vernalisation_effect(crop.HERBACEOUS, crop.CODEBFROID, outputs.loc[0,'ger'], crop.TFROID, outputs.loc[0,'temp'], crop.AMPFROID, outputs.loc[0,'jvi'], crop.JVCMINI, crop.JVC, outputs.loc[0,'findorm'], outputs.loc[0,'doy'], crop.JULVERNAL, crop.CODEPERENNE, outputs.loc[0,'rfvi'], outputs.loc[0,'vernalisation_ongoing'])
 
+    if (crop.CODEPERENNE == 2) & (initial.STADE0 != 'snu'): # perennial plant not sown
+        outputs.loc[0,'rfvi'] = 1
+    
     ## 5. Compute of phenological stage this day
     if crop.CODEINDETERMIN == 1:
-        outputs.loc[0,'upvt_post_lev'], outputs.loc[0,'sum_upvt_post_lev'], outputs.loc[0,'amf'], outputs.loc[0,'lax'], outputs.loc[0,'flo'], outputs.loc[0,'drp'], outputs.loc[0,'debdes'], outputs.loc[0,'mat'], outputs.loc[0,'sen'], outputs.loc[0,'lan'], outputs.loc[0,'sum_upvt'] = phenological_stage(outputs.loc[0,'lev'], outputs.loc[0,'udevcult'], outputs.loc[0,'rfpi'], outputs.loc[0,'rfvi'], outputs.loc[0,'sum_upvt_post_lev'], crop.STLEVAMF,
-                                                crop.STAMFLAX, crop.STLEVDRP, crop.STFLODRP, crop.STDRPDES, crop.CODEINDETERMIN, crop.STDRPMAT, crop.STDRPNOU, crop.CODLAINET, crop.STLAXSEN, crop.STSENLAN)
+        outputs.loc[0,'upvt_post_lev'], outputs.loc[0,'sum_upvt_post_lev'], outputs.loc[0,'amf'], outputs.loc[0,'lax'], outputs.loc[0,'flo'], outputs.loc[0,'drp'], outputs.loc[0,'debdes'], outputs.loc[0,'mat'], outputs.loc[0,'sen'], outputs.loc[0,'lan'], outputs.loc[0,'somcour'] = phenological_stage(outputs.loc[0,'lev'], outputs.loc[0,'udevcult'], outputs.loc[0,'rfpi'], outputs.loc[0,'rfvi'], outputs.loc[0,'sum_upvt_post_lev'], crop.STLEVAMF,
+                                                crop.STAMFLAX, crop.STLEVDRP, crop.STFLODRP, crop.STDRPDES, crop.CODEINDETERMIN, crop.STDRPMAT, crop.STDRPNOU, crop.CODLAINET, crop.STLAXSEN, crop.STSENLAN, outputs.loc[0,'lan'], outputs.loc[0,'somcour'])
     elif crop.CODEINDETERMIN == 2:  
-        outputs.loc[0,'upvt_post_lev'], outputs.loc[0,'sum_upvt_post_lev'], outputs.loc[0,'amf'], outputs.loc[0,'lax'], outputs.loc[0,'flo'], outputs.loc[0,'drp'], outputs.loc[0,'debdes'], outputs.loc[0,'mat'], outputs.loc[0,'sen'], outputs.loc[0,'lan'], outputs.loc[0,'sum_upvt'], outputs.loc[0,'nou'] = phenological_stage(outputs.loc[0,'lev'], outputs.loc[0,'udevcult'], outputs.loc[0,'rfpi'], outputs.loc[0,'rfvi'], outputs.loc[0,'sum_upvt_post_lev'], crop.STLEVAMF,
-                                                crop.STAMFLAX, crop.STLEVDRP, crop.STFLODRP, crop.STDRPDES, crop.CODEINDETERMIN, crop.STDRPMAT, crop.STDRPNOU, crop.CODLAINET, crop.STLAXSEN, crop.STSENLAN)
-    
-    #############
-    ### Leaf growth
-    #############
-    outputs.loc[0,'deltai'], outputs.loc[0,'deltai_dev'], outputs.loc[0,'deltaidens'], outputs.loc[0,'deltai_t'], outputs.loc[0,'ulai'], outputs.loc[0,'deltai_stress'], outputs.loc[0,'efdensite'], outputs.loc[0,'vmax'], outputs.loc[0,'lai'], outputs.loc[0,'mafeuilverte'], outputs.loc[0,'dltaisen'], outputs.loc[0,'dltaisenat'], outputs.loc[0,'laisen'], outputs.loc[0,'lan'], outputs.loc[0,'sen'] = leaf_growth(outputs.loc[0,'lev'], outputs.loc[0,'lax'], outputs.loc[0,'sum_upvt'], crop.STLEVAMF, crop.VLAIMAX, crop.STAMFLAX, crop.UDLAIMAX, crop.DLAIMAX, crop.PENTLAIMAX,
-                outputs.loc[0,'tcult'], crop.TCXSTOP, crop.TCMAX, crop.TCMIN, crop.ADENS, crop.BDENS, outputs.loc[0,'densite'], outputs.loc[0,'turfac'], outputs.loc[0,'phoi'], outputs.loc[0,'phoi'], crop.TIGEFEUIL,
-                crop.PHOBASE, outputs.loc[0,'rfpi'], crop.DLAIMIN, outputs.loc[0,'lai'], crop.LAICOMP, crop.STOPFEUILLE, outputs.loc[0,'vmax'], crop.CODLAINET, outputs.loc[0,'dltaisenat'], outputs.loc[0,'fstressgel'], outputs.loc[0,'laisen'], outputs.loc[0,'lax'], crop.SLAMIN, crop.SLAMAX, outputs.loc[0,'dltamsen'], outputs.loc[0,'dltaisen'], outputs.loc[0,'sen'], outputs.loc[0,'lan'])
+        outputs.loc[0,'upvt_post_lev'], outputs.loc[0,'sum_upvt_post_lev'], outputs.loc[0,'amf'], outputs.loc[0,'lax'], outputs.loc[0,'flo'], outputs.loc[0,'drp'], outputs.loc[0,'debdes'], outputs.loc[0,'mat'], outputs.loc[0,'sen'], outputs.loc[0,'lan'], outputs.loc[0,'nou'], outputs.loc[0,'somcour'] = phenological_stage(outputs.loc[0,'lev'], outputs.loc[0,'udevcult'], outputs.loc[0,'rfpi'], outputs.loc[0,'rfvi'], outputs.loc[0,'sum_upvt_post_lev'], crop.STLEVAMF,
+                                                crop.STAMFLAX, crop.STLEVDRP, crop.STFLODRP, crop.STDRPDES, crop.CODEINDETERMIN, crop.STDRPMAT, crop.STDRPNOU, crop.CODLAINET, crop.STLAXSEN, crop.STSENLAN, outputs.loc[0,'lan'], outputs.loc[0,'somcour'])
+
+    ###################
+    ### Leaf growth ###
+    ###################
+    outputs.loc[0,'deltai'], outputs.loc[0,'deltai_dev'], outputs.loc[0,'deltai_dens'], outputs.loc[0,'deltai_t'], outputs.loc[0,'ulai'], outputs.loc[0,'deltai_stress'], outputs.loc[0,'efdensite'], outputs.loc[0,'vmax'], outputs.loc[0,'lai'], outputs.loc[0,'mafeuilverte'], outputs.loc[0,'dltaisen'], outputs.loc[0,'dltaisenat'], outputs.loc[0,'laisen'], outputs.loc[0,'lan'], outputs.loc[0,'sen'], outputs.loc[0,'ratiotf'] = leaf_growth(0, outputs.loc[0,'lev'], outputs.loc[0,'lax'], outputs.loc[0,'sum_upvt_post_lev'], crop.STLEVAMF, crop.VLAIMAX, crop.STAMFLAX, crop.UDLAIMAX, crop.DLAIMAX, crop.PENTLAIMAX,
+                outputs.loc[0,'tcult'], crop.TCXSTOP, crop.TCMAX, crop.TCMIN, crop.ADENS, crop.BDENS, outputs.loc[0,'densite'], outputs.loc[0,'turfac'], outputs.loc[0,'phoi'], outputs.loc[0,'phoi'], outputs.loc[0,'ratiotf'],
+                crop.PHOBASE, outputs.loc[0,'rfpi'], crop.DLAIMIN, outputs.loc[0,'lai'], crop.LAICOMP, crop.STOPFEUILLE, outputs.loc[0,'vmax'], crop.CODLAINET, outputs.loc[0,'dltaisenat'], outputs.loc[0,'fstressgel'], outputs.loc[0,'laisen'], outputs.loc[0,'lax'], crop.SLAMIN, crop.SLAMAX, outputs.loc[0,'dltamsen'], outputs.loc[0,'dltaisen'], outputs.loc[0,'lan'], crop.CODEPHOT_PART, outputs.loc[0,'amf'], crop.TIGEFEUIL, outputs.loc[0,'dltams'], crop.CODEINDETERMIN, outputs.loc[0,'sla'], outputs['sen'].array, outputs.loc[0,'sen'], outputs.loc[0,'somcour'], crop.STSENLAN, outputs['lai'].array)
     
     if crop.CODLAINET == 1:
         outputs.loc[0,'lai'] = outputs.loc[0,'lai'] + outputs.loc[0,'deltai'] - outputs.loc[0,'dltaisenat']
@@ -101,7 +104,7 @@ def compute_outputs_day_zero(outputs, crop, soil, manage, constants, initial, st
     outputs.loc[0,'fstressgel'] = senescence_stress(outputs.loc[0,'lev'], outputs.loc[0,'ulai'], crop.VLAIMAX, outputs.loc[0,'temp_min'], crop.TGELJUV10, crop.TGELJUV90, crop.TGELVEG10, crop.TGELVEG90, crop.TLETALE, crop.TDEBGEL, crop.CODGELJUV, crop.CODGELVEG)
 
     outputs['dayLAIcreation'], outputs['durage'], outputs['senstress'], outputs['tdevelop'], outputs['durvie'], outputs.loc[0,'dltaisen'], outputs.loc[0,'somsenreste'], ndebsen, outputs.loc[0,'somtemp'], outputs.loc[0,'dltamsen'], outputs.loc[0,'deltamsresen'], outputs.loc[0,'msres'], outputs.loc[0,'msresjaune'], outputs.loc[0,'durvie_n']   = senescence(0, outputs['lev'], outputs.loc[0,'ulai'], outputs.loc[0,'somtemp'], crop.VLAIMAX, durviei, crop.DURVIEF, 1, outputs.loc[0,'udevcult'], outputs.loc[0,'fstressgel'],
-            outputs['dayLAIcreation'].array, outputs['senstress'].array, outputs['tdevelop'].array, outputs['durvie'].array, outputs['durage'].array, outputs['deltai'].array, outputs.loc[0,'somsenreste'], initial.LAI0, ndebsen, outputs['dltafv'], crop.RATIOSEN, crop.forage, outputs.loc[0,'msres'], msresiduel, outputs.loc[0,'msresjaune'], crop.CODLAINET)
+            outputs['dayLAIcreation'].array, outputs['senstress'].array, outputs['tdevelop'].array, outputs['durvie'].array, outputs['durage'].array, outputs['deltai'].array, outputs.loc[0,'somsenreste'], initial.LAI0, ndebsen, outputs['dltafv'], crop.RATIOSEN, crop.CODEPLANTE, outputs.loc[0,'msres'], msresiduel, outputs.loc[0,'msresjaune'], crop.CODLAINET)
     
     outputs.loc[0,'laisen'] = outputs.loc[0,'dltaisen']
 
@@ -113,7 +116,7 @@ def compute_outputs_day_zero(outputs, crop, soil, manage, constants, initial, st
     ###################
     ### Root growth ###
     ###################
-    outputs.loc[0,'zrac'], outputs.loc[0,'deltaz'], outputs.loc[0,'deltaz_t'], outputs.loc[0,'deltaz_stress'], outputs.loc[0,'efda'], outputs.loc[0,'humirac_mean'], outputs.loc[0,'znonli'] = root_growth(outputs.loc[0,'ger'], outputs.loc[0,'lax'], crop.CODEPERENNE, outputs.loc[0,'findorm'], manage.PROFSEM, outputs.loc[0,'zrac'], crop.CODETEMPRAC,
+    outputs.loc[0,'zrac'], outputs.loc[0,'deltaz'], outputs.loc[0,'deltaz_t'], outputs.loc[0,'deltaz_stress'], outputs.loc[0,'efda'], outputs.loc[0,'znonli'], outputs.loc[0,'humirac_mean'] = root_growth(outputs.loc[0,'ger'], outputs.loc[0,'lax'], outputs.loc[0,'sen'], outputs.loc[0,'rec'], crop.STOPRAC, crop.CODEPERENNE, outputs.loc[0,'findorm'], manage.PROFSEM, outputs.loc[0,'zrac'], crop.CODETEMPRAC,
             outputs.loc[0,'tcult'], crop.TCMAX, crop.TCMIN, crop.TGMIN, crop.CROIRAC, hur[0], tsol[0], soil.HMIN, crop.SENSRSEC, soil.DEPTH, constants.DASEUILBAS, constants.DASEUILHAUT, crop.CONTRDAMAX, soil.DAF, outputs.loc[0,'lev'], soil.HCC, crop.HERBACEOUS, outputs.loc[0, 'znonli'])
 
     ####################
@@ -164,7 +167,7 @@ def compute_outputs_day_zero(outputs, crop, soil, manage, constants, initial, st
     #######################
     ### Water balance #####
     #######################
-    hur[0], outputs.loc[0,'drained_water'] = water_balance(outputs.loc[0,'trr'], outputs.loc[0,'airg'], outputs.loc[0,'mouill'], soil.DEPTH, hur[0], np.array([0 for i in range(len(outputs))]), esz[0], soil.HCC, hurlim)
+    hur[0], outputs.loc[0,'drain'] = water_balance(outputs.loc[0,'trr'], outputs.loc[0,'airg'], outputs.loc[0,'mouill'], soil.DEPTH, hur[0], np.array([0 for i in range(len(outputs))]), esz[0], soil.HCC, hurlim)
 
     ###########################
     ### Plant transpiration ###
@@ -172,7 +175,7 @@ def compute_outputs_day_zero(outputs, crop, soil, manage, constants, initial, st
 
     # Actual
     outputs.loc[0,'ep'] = actual_transpiration(1, outputs.loc[0,'eop'])
-    epz[0] = soil_contribution_to_transpiration(outputs.loc[0,'ep'], epz[0], soil.DEPTH, hur[0], soil.HMIN, lracz[0], outputs.loc[0,'lev'])
+    epz[0] = soil_contribution_to_transpiration(outputs.loc[0,'ep'], epz[0], soil.DEPTH, hur[0], soil.HMIN, lracz[0], outputs.loc[0,'lev'], manage.PROFSEM, outputs.loc[0,'zrac'])
 
 
     outputs.loc[0,'et'] = outputs.loc[0,'esol'] + outputs.loc[0,'ep']
@@ -214,7 +217,7 @@ def compute_outputs_day_zero(outputs, crop, soil, manage, constants, initial, st
         
 
     # For forage crops only
-    if crop.forage:
+    if crop.CODEPLANTE == 'FOU':
 
         # Specific outputs
         outputs.loc[0,'msneojaune'] = outputs.loc[0,'mafeuiljaune'].copy()

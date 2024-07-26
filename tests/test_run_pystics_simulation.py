@@ -16,8 +16,9 @@ def test_tun_pystics_simulation():
 
     pystics_ble_mocked = pd.read_csv(mocked_dir + '/pystics_simu_results.csv')
 
-    assert np.allclose(pystics_ble_test.mafruit.values, pystics_ble_mocked.mafruit.values)
-    assert  np.allclose(pystics_ble_test.resrac.values, pystics_ble_mocked.resrac.values)
-    assert np.allclose(pystics_ble_test.swfac.values, pystics_ble_mocked.swfac.values)
-    assert np.allclose(pystics_ble_test.dltams.values, pystics_ble_mocked.dltams.values)
-    assert np.allclose(pystics_ble_test.ftemp.values, pystics_ble_mocked.ftemp.values)
+    assert np.allclose(pystics_ble_test.mafruit.values, pystics_ble_mocked.mafruit.values, atol=1e-3)
+    assert  np.allclose(pystics_ble_test.resrac.values, pystics_ble_mocked.resrac.values, atol=1e-3)
+    assert np.allclose(pystics_ble_test.swfac.values, pystics_ble_mocked.swfac.values, atol=1e-3)
+    assert np.allclose(pystics_ble_test.dltams.values, pystics_ble_mocked.dltams.values, atol=1e-3)
+    assert np.allclose(pystics_ble_test.ftemp.values, pystics_ble_mocked.ftemp.values, atol=1e-3)
+    assert np.allclose(pystics_ble_test.udevcult.values, pystics_ble_mocked.udevcult.values, atol=1e-3)

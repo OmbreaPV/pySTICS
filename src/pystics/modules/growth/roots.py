@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def root_growth(ger_i, lax_i, codeperenne, findorm_i, profsem, zrac, codetemprac,
+def root_growth(ger_i, lax_i, sen_i, rec_i, stoprac, codeperenne, findorm_i, profsem, zrac, codetemprac,
                 tcult_prev, tcmax, tcmin, tgmin, croirac, hur_i, tsol_i, hmin, sensrsec, depth, daseuilbas, daseuilhaut, contrdamax, daf, lev_i, hcc, herbaceous, znonli):
     """
     This module computes daily root growth (deltaz), maximum root depth (zrac) and maximum root depth without physical or phenological stop (znonli).
@@ -18,7 +18,7 @@ def root_growth(ger_i, lax_i, codeperenne, findorm_i, profsem, zrac, codetemprac
 
     # Phenological root growth stop
     compute_root_growth = True
-    if lax_i == 1: # # TODO : add criteria on STOPRAC ('LAX' or 'SEN'). pySTICS : we consider that STOPRAC = LAX for all species
+    if ((lax_i == 1) & (stoprac == 'LAX')) | ((sen_i == 1) & (stoprac == 'SEN')) | ((rec_i == 1) & (stoprac == 'REC')):
         compute_root_growth = False
 
 
@@ -57,21 +57,18 @@ def root_growth(ger_i, lax_i, codeperenne, findorm_i, profsem, zrac, codetemprac
                 humirac_ap = np.clip(hur_mean * sensrsec / humin_mean, 0, 1)
 
         # Water stress on whole depth
-        humirac_list = []
+        humirac_i = np.array([0 for i in range(len(hur_i))])
         if lev_i == 0:
-            for z_index in range(max(0,int(profsem)-1), max(int(profsem)+1,int(min(round(zrac), depth)))):
-                if hur_i[z_index] > hmin[z_index]:
-                    x = (hur_i[z_index] - hmin[z_index]) / (hcc[z_index] - hmin[z_index])
-                    humirac_list.append(np.clip(sensrsec + (1 - sensrsec) * x, 0, 1))
-                elif hur_i[z_index] <= hmin[z_index]:
-                    humirac_list.append(np.clip(hur_i[z_index] * sensrsec / hmin[z_index], 0, 1))
+            root_range = range(max(0,int(profsem)-1), max(int(profsem)+1,int(min(round(zrac), depth))))
+            x = (hur_i - hmin) / (hcc - hmin)
+            humirac_i[hur_i > hmin] = np.clip(sensrsec + (1 - sensrsec) * x[hur_i > hmin], 0, 1)
+            humirac_i[hur_i <= hmin] = np.clip(hur_i[hur_i <= hmin] * sensrsec / hmin[hur_i <= hmin], 0, 1)
         else:
-            for z_index in range(max(0,int(profsem)-1), int(min(round(zrac), depth))):
-                if hur_i[z_index] >= hmin[z_index]:
-                    humirac_list.append(1)
-                elif hur_i[z_index] < hmin[z_index]:
-                    humirac_list.append(np.clip(hur_i[z_index] * sensrsec / hmin[z_index], 0, 1))
-        humirac_mean = np.mean(humirac_list)
+            root_range = range(max(0,int(profsem)-1), int(min(round(zrac), depth)))
+            humirac_i[hur_i >= hmin] = 1
+            humirac_i[hur_i < hmin] = np.clip(hur_i[hur_i < hmin] * sensrsec / hmin[hur_i < hmin], 0, 1)
+        humirac_mean = np.mean(humirac_i[root_range])
+
 
         # Stress component of root growth
         deltaz_stress = humirac_ap * efda
@@ -84,7 +81,7 @@ def root_growth(ger_i, lax_i, codeperenne, findorm_i, profsem, zrac, codetemprac
         znonli = znonli + deltaz
         deltaz = deltaz * compute_root_growth
 
-    return zrac, deltaz, deltaz_t, deltaz_stress, efda, humirac_mean, znonli
+    return zrac, deltaz, deltaz_t, deltaz_stress, efda, znonli, humirac_mean
 
 def root_density(lracz_i, zrac, znonli, depth, zprlim, zpente, ger_i, codeperenne, lvopt, s, profsem,
                  hur_i, hmin, humirac_i):
@@ -95,31 +92,23 @@ def root_density(lracz_i, zrac, znonli, depth, zprlim, zpente, ger_i, codeperenn
         - True density approach (coderacine=1) is not implemented.
     '''
 
-    humirac_mean = 1
-
     # Necessary root depth to absorb 20% of water
     zdemi = max(znonli - zprlim + zpente, (np.log(4) / s))
 
-    ZRac_Ceil = min(round(zrac)+1, depth)
+    zrac_max = min(round(zrac)+1, depth)
 
     if ((ger_i == 1) or (codeperenne == 2)) & (zrac != 0):
-        humirac_mean = 0
-        for z_index in range(max(0,int(profsem)-1), round(ZRac_Ceil)): 
-            
-            # Water stress index affecting root density
-            if hur_i[z_index] >= hmin[z_index]:  
-                humirac_i[z_index] = 1
-            else:
-                humirac_i[z_index] = min(1, max(0, 0 * hur_i[z_index] / hmin[z_index])) 
-            
-            # Root density
-            lracz_i[z_index] = lvopt * humirac_i[z_index] / (1 + np.exp(-s * ((z_index + z_index+1)/2 - zdemi)))
-            humirac_mean = humirac_mean + humirac_i[z_index]
-        
-        humirac_mean = humirac_mean / (round(ZRac_Ceil) - max(0,int(profsem)-1))
+
+        # Water stress index affecting root density
+        humirac_i[hur_i >= hmin] = 1
+        humirac_i[hur_i < hmin] = np.minimum(1, np.maximum(0, 0 * hur_i[hur_i < hmin] / hmin[hur_i < hmin])) 
+
+        # Root density
+        root_range = range(max(0,int(profsem)-1), round(zrac_max))
+        lracz_i[root_range] = lvopt * humirac_i[root_range] / (1 + np.exp(-s * ((2*np.array([z_index for z_index in root_range]) +1)/2 - zdemi)))
                                        
     # Cumulated root length density
-    cumlracz = np.nansum(lracz_i)
+    cumlracz = lracz_i.sum()
 
     return lracz_i, cumlracz, zdemi, humirac_i
 

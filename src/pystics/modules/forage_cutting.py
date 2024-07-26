@@ -1,7 +1,7 @@
 
 
 
-def cutting(codefauche, cut_number, julfauche, doy, codemodfauche, msresiduel, masec, masecneo, lairesiduel, lai, msrec_fou, mafruit, mscoupemini, masectot, msresjaune, msneojaune, mafeuiljaune, msres, stade0, lev, amf, lax, flo, drp, debdes):
+def cutting(codefauche, cut_number, julfauche, doy, codemodfauche, msresiduel, masec, masecneo, lairesiduel, lai, msrec_fou, mafruit, mscoupemini, masectot, msresjaune, msneojaune, mafeuiljaune, msres, stade0, lev, amf, lax, flo, drp, debdes, i, dayLAIcreation, deltai, somsenreste, dltaisen, laisen, sum_upvt_post_lev):
     '''
 
     This modules checks the 4 conditions for forage crops cutting, and triggers cutting if they are verified.
@@ -36,13 +36,18 @@ def cutting(codefauche, cut_number, julfauche, doy, codemodfauche, msresiduel, m
                 mafeuiljaune = 0 # --> mafeuiljaune becomes the senescent pool of newly produced biomass
                 masec = msresiduel
                 msres = msresiduel
-                lai = lairesiduel
+                lai = lairesiduel + deltai
                 lev = 1
                 amf = 1 if stade0 == 'amf' else 0
                 lax = 0
                 flo = 0
                 drp = 0
-                debdes = 0            
+                debdes = 0
+                dayLAIcreation = i
+                somsenreste = 0
+                laisen = 0
+                dltaisen = 0
+                sum_upvt_post_lev = 0  
     
-    return masectot, msrec_fou, mafruit, masecneo, msresjaune, msneojaune, mafeuiljaune, masec, msres, lai, cut_number, lev, amf, lax, flo, drp, debdes
+    return masectot, msrec_fou, mafruit, masecneo, msresjaune, msneojaune, mafeuiljaune, masec, msres, lai, cut_number, lev, amf, lax, flo, drp, debdes, dayLAIcreation, somsenreste, dltaisen, laisen, sum_upvt_post_lev
 
