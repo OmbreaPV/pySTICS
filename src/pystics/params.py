@@ -556,18 +556,19 @@ class ManageParams:
                 for i in dico['fichiertec']['formalisme'][4]['option'][0]['choix'][1]['ta']['intervention']:
                     self.IRRIGATION_INTERVENTIONS[f"{i['colonne'][0]['#text']}"] = float(i['colonne'][1]['#text'])
 
-        if (self.CODEFAUCHE == 1) & (int(dico['fichiertec']['formalisme'][7]['option'][0]['choix'][0]['option'][2]['choix'][1]['ta']['@nb_interventions']) > 0):
-            if int(dico['fichiertec']['formalisme'][7]['option'][0]['choix'][0]['option'][2]['choix'][1]['ta']['@nb_interventions']) == 1:
-                self.JULFAUCHE = [int(dico['fichiertec']['formalisme'][7]['option'][0]['choix'][0]['option'][2]['choix'][1]['ta']['intervention']['colonne'][0]['#text'])]
-                self.MSCOUPEMINI = [int(dico['fichiertec']['formalisme'][7]['option'][0]['choix'][0]['option'][2]['choix'][1]['ta']['intervention']['colonne'][8]['#text'])]
-            else:
-                l_julfauche = []
-                l_mscoupemini = []
-                for i in dico['fichiertec']['formalisme'][7]['option'][0]['choix'][0]['option'][2]['choix'][1]['ta']['intervention']:
-                    l_julfauche.append(int(i['colonne'][0]['#text']))
-                    l_mscoupemini.append(int(i['colonne'][8]['#text']))
-                self.JULFAUCHE = l_julfauche.copy()
-                self.MSCOUPEMINI = l_mscoupemini.copy()
+        if (self.CODEFAUCHE == 1):
+            if (int(dico['fichiertec']['formalisme'][7]['option'][0]['choix'][0]['option'][2]['choix'][1]['ta']['@nb_interventions']) > 0):
+                if int(dico['fichiertec']['formalisme'][7]['option'][0]['choix'][0]['option'][2]['choix'][1]['ta']['@nb_interventions']) == 1:
+                    self.JULFAUCHE = [int(dico['fichiertec']['formalisme'][7]['option'][0]['choix'][0]['option'][2]['choix'][1]['ta']['intervention']['colonne'][0]['#text'])]
+                    self.MSCOUPEMINI = [int(dico['fichiertec']['formalisme'][7]['option'][0]['choix'][0]['option'][2]['choix'][1]['ta']['intervention']['colonne'][8]['#text'])]
+                else:
+                    l_julfauche = []
+                    l_mscoupemini = []
+                    for i in dico['fichiertec']['formalisme'][7]['option'][0]['choix'][0]['option'][2]['choix'][1]['ta']['intervention']:
+                        l_julfauche.append(int(i['colonne'][0]['#text']))
+                        l_mscoupemini.append(int(i['colonne'][8]['#text']))
+                    self.JULFAUCHE = l_julfauche.copy()
+                    self.MSCOUPEMINI = l_mscoupemini.copy()
         else:
             self.JULFAUCHE = []
             self.MSCOUPEMINI = []
