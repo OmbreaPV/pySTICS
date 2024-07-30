@@ -1,6 +1,6 @@
 import numpy as np
 from pystics.modules.growth.thermal_stress_indices import frost_stress
-
+from pystics.exceptions import pysticsException
 
 
 def senescence(i, lev, ulai, somtemp, vlaimax, durviei, durvief, senfac_prev, udevcult, fstressgel,
@@ -85,7 +85,7 @@ def senescence(i, lev, ulai, somtemp, vlaimax, durviei, durvief, senfac_prev, ud
                 j = int(dayLAIcreation_list[i]) + nb_deltai_senescent
 
                 # Compare development temperature to leaf area lifespan, and trigger senescence
-                if somsen >= durvie_list[j]:
+                if (somsen >= durvie_list[j]) & (j < i):
                     if codlainet == 2:
                         dltaisen = dltaisen + deltai_list[j]
                     somsen = somsen - durvie_list[j]
