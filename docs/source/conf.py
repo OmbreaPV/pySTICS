@@ -7,12 +7,9 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 
-from pystics import __version__
-
 project = "pystics"
 copyright = f"2023, Pystics Developpers"
 author = "Etienne Perez"
-release = __version__
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
