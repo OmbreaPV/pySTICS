@@ -4,3 +4,4 @@ nbsphinx
 nbsphinx-link
 ipython
 sphinx-copybutton
+docutils==0.16
