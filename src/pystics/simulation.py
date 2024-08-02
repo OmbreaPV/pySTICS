@@ -28,6 +28,7 @@ from pystics.modules.water.water_stress import water_stress
 from pystics.modules.water.water_balance import water_balance
 from pystics.exceptions import pysticsException
 from pystics.modules.growth.biomass_partitioning import cumultative_partitioning
+from pystics.modules.lethal_frost import lethal_frost
 
 
 def run_pystics_simulation(weather : pd.DataFrame, crop : CropParams, soil : SoilParams, constants : Constants, manage : ManageParams, station : StationParams, initial : InitialParams) -> pd.DataFrame :
@@ -149,7 +150,7 @@ def run_pystics_simulation(weather : pd.DataFrame, crop : CropParams, soil : Soi
         ###################
         ### Leaf growth ###
         ###################
-        outputs.loc[i,'deltai'], outputs.loc[i,'deltai_dev'], outputs.loc[i,'deltai_dens'], outputs.loc[i,'deltai_t'], outputs.loc[i,'ulai'], outputs.loc[i,'deltai_stress'], outputs.loc[i,'efdensite'], outputs.loc[i,'vmax'], outputs.loc[i,'lai'], outputs.loc[i,'mafeuilverte'], outputs.loc[i,'dltaisen'], outputs.loc[i,'dltaisenat'], outputs.loc[i,'laisen'], outputs.loc[i,'lan'], outputs.loc[i,'sen'], outputs.loc[i,'ratiotf'] = leaf_growth(i, outputs.loc[i,'lev'], outputs.loc[i,'lax'], outputs.loc[i,'sum_upvt_post_lev'], crop.STLEVAMF, crop.VLAIMAX, crop.STAMFLAX, crop.UDLAIMAX, crop.DLAIMAX, crop.PENTLAIMAX,
+        outputs.loc[i,'deltai'], outputs.loc[i,'deltai_dev'], outputs.loc[i,'deltai_dens'], outputs.loc[i,'deltai_t'], outputs.loc[i,'ulai'], outputs.loc[i,'deltai_stress'], outputs.loc[i,'efdensite'], outputs.loc[i,'vmax'], outputs.loc[i,'lai'], outputs.loc[i,'mafeuilverte'], outputs.loc[i,'dltaisen'], outputs.loc[i,'dltaisenat'], outputs.loc[i,'laisen'], outputs.loc[i,'lan'], outputs.loc[i,'sen'], outputs.loc[i,'ratiotf'], outputs.loc[i,'stopfeuille_stage'] = leaf_growth(i, outputs.loc[i,'lev'], outputs.loc[i,'lax'], outputs.loc[i,'sum_upvt_post_lev'], crop.STLEVAMF, crop.VLAIMAX, crop.STAMFLAX, crop.UDLAIMAX, crop.DLAIMAX, crop.PENTLAIMAX,
                     outputs.loc[i-1,'tcult'], crop.TCXSTOP, crop.TCMAX, crop.TCMIN, crop.ADENS, crop.BDENS, outputs.loc[i,'densite'], outputs.loc[i-1,'turfac'], outputs.loc[i,'phoi'], outputs.loc[i-1,'phoi'], outputs.loc[i,'ratiotf'],
                     crop.PHOBASE, outputs.loc[i,'rfpi'], crop.DLAIMIN, outputs.loc[i-1,'lai'], crop.LAICOMP, crop.STOPFEUILLE, outputs.loc[i-1,'vmax'], crop.CODLAINET, outputs.loc[i-1,'dltaisenat'], outputs.loc[i-1,'fstressgel'], outputs.loc[i-1,'laisen'], outputs.loc[i,'lax'], crop.SLAMIN, crop.SLAMAX, outputs.loc[i-1,'dltamsen'], outputs.loc[i-1,'dltaisen'], outputs.loc[i,'lan'], crop.CODEPHOT_PART, outputs.loc[i,'amf'], crop.TIGEFEUIL, outputs.loc[i-1,'dltams'], crop.CODEINDETERMIN, outputs.loc[i-1,'sla'], outputs['sen'].array, outputs.loc[i-1,'sen'], outputs.loc[i,'somcour'], crop.STSENLAN, outputs['lai'].array)
 
@@ -168,7 +169,7 @@ def run_pystics_simulation(weather : pd.DataFrame, crop : CropParams, soil : Soi
         ##########################
         ### Biomass production ###
         ##########################
-        outputs.loc[i,'dltams'], outputs.loc[i,'masec'], outputs.loc[i,'ebmax'], outputs.loc[i,'dltafv'] = biomass_production(outputs.loc[i-1,'masec'], outputs.loc[i,'raint'], outputs.loc[i,'lev'], outputs.loc[i-1,'amf'], outputs.loc[i-1,'drp'], crop.EFCROIJUV, crop.EFCROIREPRO, crop.EFCROIVEG,
+        outputs.loc[i,'dltams'], outputs.loc[i,'ebmax'], outputs.loc[i,'dltafv'], outputs.loc[i,'pfeuilverte'] = biomass_production(outputs.loc[i,'raint'], outputs.loc[i,'lev'], outputs.loc[i-1,'amf'], outputs.loc[i-1,'drp'], crop.EFCROIJUV, crop.EFCROIREPRO, crop.EFCROIVEG,
                                 constants.COEFB, outputs.loc[i-1,'swfac'], fco2, outputs.loc[i,'ftemp'], outputs.loc[i, "deltai"], crop.SLAMAX)
 
         # Biomass remobilised on previous day
@@ -181,16 +182,23 @@ def run_pystics_simulation(weather : pd.DataFrame, crop : CropParams, soil : Soi
         outputs.loc[i,'matigestruc'] = crop.TIGEFEUIL * outputs.loc[i,'mafeuil'] # eq 7.7
 
         # Biomass remobilisation
-        if crop.CODEPERENNE == 2:
-            outputs.loc[i,'dltaremobil'] = cumultative_partitioning(outputs.loc[i,'lev'], outputs.loc[i,'mafeuil'], outputs.loc[i,'matigestruc'], outputs.loc[i-1,'mafruit'], outputs.loc[i-1,'maenfruit'], crop.CODEPERENNE, outputs.loc[i,'masec'], initial.RESTEMP0, crop.RESPLMAX, outputs.loc[i,'densite'], crop.REMOBRES, outputs.loc[i,'deltai'], crop.SLAMIN, outputs.loc[i,'ratiotf'], crop.CODEINDETERMIN, outputs.loc[i-1,'cumdltaremobil'], outputs.loc[i,'dltams'])
+        outputs.loc[i,'dltaremobil'], outputs.loc[i,'restemp'], outputs.loc[i,'dltams'], outputs.loc[i,'fpv'], outputs.loc[i,'sourcepuits'], outputs.loc[i,'dltarestemp'] = cumultative_partitioning(outputs.loc[i,'lev'], outputs.loc[i,'mafeuil'], outputs.loc[i,'matigestruc'], outputs.loc[i-1,'mafruit'], outputs.loc[i-1,'maenfruit'], crop.CODEPERENNE, outputs.loc[i,'masec'], initial.RESTEMP0, crop.RESPLMAX, outputs.loc[i,'densite'], crop.REMOBRES, outputs.loc[i,'deltai'], crop.SLAMIN, outputs.loc[i,'ratiotf'], crop.CODEINDETERMIN, outputs.loc[i-1,'cumdltaremobil'], outputs.loc[i,'dltams'])
+
+        outputs.loc[i,'masec'] = outputs.loc[i-1,'masec'] + outputs.loc[i,'dltams']
+        outputs.loc[i,'masecnp'] = outputs.loc[i,'matigestruc'] + outputs.loc[i-1,'masecnp'] + outputs.loc[i,'dltams'] - outputs.loc[i,'dltarestemp']
 
         ##################
         ### Senescence ###
         ##################
         outputs.loc[i,'fstressgel'] = senescence_stress(outputs.loc[i,'lev'], outputs.loc[i,'ulai'], crop.VLAIMAX, outputs.loc[i-1,'temp_min'], crop.TGELJUV10, crop.TGELJUV90, crop.TGELVEG10, crop.TGELVEG90, crop.TLETALE, crop.TDEBGEL, crop.CODGELJUV, crop.CODGELVEG)
 
-        outputs['dayLAIcreation'], outputs['durage'], outputs['senstress'], outputs['tdevelop'], outputs['durvie'], outputs.loc[i,'dltaisen'], outputs.loc[i,'somsenreste'], ndebsen, outputs.loc[i,'somtemp'], outputs.loc[i,'dltamsen'], outputs.loc[i,'deltamsresen'], outputs.loc[i,'msres'], outputs.loc[i,'msresjaune'], outputs.loc[i,'durvie_n'] = senescence(i, outputs['lev'], outputs.loc[i,'ulai'], outputs.loc[i,'somtemp'], crop.VLAIMAX, durviei, crop.DURVIEF, outputs.loc[i-1,'senfac'], outputs.loc[i,'udevcult'], outputs.loc[i,'fstressgel'],
-               outputs['dayLAIcreation'].array, outputs['senstress'].array, outputs['tdevelop'].array, outputs['durvie'].array, outputs['durage'].array, outputs['deltai'].array, outputs.loc[i-1,'somsenreste'], initial.LAI0, ndebsen, outputs['dltafv'], crop.RATIOSEN, crop.CODEPLANTE, outputs.loc[i-1,'msres'], msresiduel, outputs.loc[i-1,'msresjaune'], crop.CODLAINET)
+
+        # Plant death because of frost
+        if outputs.loc[i,'fstressgel'] == 0:
+            outputs.loc[i,'dltaisen'], outputs.loc[i,'dltamsen'], outputs.loc[i,'laisen'], outputs.loc[i,'amf'], outputs.loc[i,'lax'], outputs.loc[i,'sen'], outputs.loc[i,'lan'], outputs.loc[i,'drp'], outputs.loc[i,'mat'], crop.STSENLAN, crop.STLAXSEN, crop.STLEVAMF, crop.STAMFLAX, crop.STLEVDRP, crop.STDRPMAT = lethal_frost(outputs.loc[i,'lai'], outputs.loc[i,'mafeuilverte'], outputs.loc[i-1,'laisen'], outputs.loc[i,'dltaisen'], outputs.loc[i,'stopfeuille_stage'], outputs.loc[i,'restemp'], crop.CODEPERENNE, outputs.loc[i,'amf'], outputs.loc[i,'lax'], outputs.loc[i,'sen'], outputs.loc[i,'lan'], outputs.loc[i,'drp'], outputs.loc[i,'mat'], outputs.loc[i,'sum_upvt_post_lev'], crop.STSENLAN, crop.STLAXSEN, crop.STLEVAMF, crop.STAMFLAX, crop.STLEVDRP, crop.STDRPMAT)
+        else:
+            outputs['dayLAIcreation'], outputs['durage'], outputs['senstress'], outputs['tdevelop'], outputs['durvie'], outputs.loc[i,'dltaisen'], outputs.loc[i,'somsenreste'], ndebsen, outputs.loc[i,'somtemp'], outputs.loc[i,'dltamsen'], outputs.loc[i,'deltamsresen'], outputs.loc[i,'msres'], outputs.loc[i,'msresjaune'], outputs.loc[i,'durvie_n'] = senescence(i, outputs['lev'], outputs.loc[i,'ulai'], outputs.loc[i,'somtemp'], crop.VLAIMAX, durviei, crop.DURVIEF, outputs.loc[i-1,'senfac'], outputs.loc[i,'udevcult'], outputs.loc[i,'fstressgel'],
+                outputs['dayLAIcreation'].array, outputs['senstress'].array, outputs['tdevelop'].array, outputs['durvie'].array, outputs['durage'].array, outputs['deltai'].array, outputs.loc[i-1,'somsenreste'], initial.LAI0, ndebsen, outputs['dltafv'], crop.RATIOSEN, crop.CODEPLANTE, outputs.loc[i-1,'msres'], msresiduel, outputs.loc[i-1,'msresjaune'], crop.CODLAINET, outputs['pfeuilverte'], outputs['dltams'])
         
 
         ######################
@@ -201,13 +209,13 @@ def run_pystics_simulation(weather : pd.DataFrame, crop : CropParams, soil : Soi
         ###################
         ### Root growth ###
         ###################
-        outputs.loc[i,'zrac'], outputs.loc[i,'deltaz'], outputs.loc[i,'deltaz_t'], outputs.loc[i,'deltaz_stress'], outputs.loc[i,'efda'], outputs.loc[i,'znonli'], outputs.loc[i,'humirac_mean'] = root_growth(outputs.loc[i,'ger'], outputs.loc[i,'lax'], outputs.loc[i,'sen'], outputs.loc[i,'rec'], crop.STOPRAC, crop.CODEPERENNE, outputs.loc[i,'findorm'], manage.PROFSEM, outputs.loc[i,'zrac'], crop.CODETEMPRAC,
+        outputs.loc[i,'zrac'], outputs.loc[i,'deltaz'], outputs.loc[i,'deltaz_t'], outputs.loc[i,'deltaz_stress'], outputs.loc[i,'efda'], outputs.loc[i,'znonli'] = root_growth(outputs.loc[i,'ger'], outputs.loc[i,'lax'], outputs.loc[i,'sen'], outputs.loc[i,'rec'], crop.STOPRAC, crop.CODEPERENNE, outputs.loc[i,'findorm'], manage.PROFSEM, outputs.loc[i,'zrac'], crop.CODETEMPRAC,
                 outputs.loc[i-1,'tcult'], crop.TCMAX, crop.TCMIN, crop.TGMIN, crop.CROIRAC, hur[i], tsol[i], soil.HMIN, crop.SENSRSEC, soil.DEPTH, constants.DASEUILBAS, constants.DASEUILHAUT, crop.CONTRDAMAX, soil.DAF, outputs.loc[i,'lev'], soil.HCC, crop.HERBACEOUS, outputs.loc[i-1, 'znonli'])
 
         ####################
         ### Root density ###
         ####################
-        lracz[i], outputs.loc[i,'cumlracz'], outputs.loc[i,'zdemi'], humirac[i] = root_density(lracz[i], outputs.loc[i,'zrac'], outputs.loc[i,'znonli'], soil.DEPTH, crop.ZPRLIM, crop.ZPENTE, outputs.loc[i,'ger'], crop.CODEPERENNE, constants.LVOPT, s, manage.PROFSEM, 
+        lracz[i], outputs.loc[i,'cumlracz'], outputs.loc[i,'zdemi'], humirac[i], outputs.loc[i,'humirac_mean'] = root_density(lracz[i], outputs.loc[i,'zrac'], outputs.loc[i,'znonli'], soil.DEPTH, crop.ZPRLIM, crop.ZPENTE, outputs.loc[i,'ger'], crop.CODEPERENNE, constants.LVOPT, s, manage.PROFSEM, 
                                                                                                hur[i], soil.HMIN, humirac[i])
         
         ######################
@@ -312,8 +320,10 @@ def run_pystics_simulation(weather : pd.DataFrame, crop : CropParams, soil : Soi
         ### Thermal stress indices ###
         ##############################
         outputs.loc[i,'ftempremp'] = thermal_stress_on_grain_filling(crop.CODETREMP, outputs.loc[i-1,'temp_min'], outputs.loc[i-1,'tcultmax'], crop.TMINREMP, crop.TMAXREMP)
-        outputs.loc[i,'fgelflo'] = frost_stress_on_fruit_number(outputs.loc[i-1,'temp_min'], crop.TGELFLO90, crop.TGELFLO10, crop.TLETALE, crop.TDEBGEL, crop.CODGELFLO)
-        
+        if outputs.loc[i,'flo'] == 1:
+            outputs.loc[i,'fgelflo'] = frost_stress_on_fruit_number(outputs.loc[i-1,'temp_min'], crop.TGELFLO90, crop.TGELFLO10, crop.TLETALE, crop.TDEBGEL, crop.CODGELFLO)
+        else:
+            outputs.loc[i,'fgelflo'] = 1
 
         # For forage crops only
         if crop.CODEPLANTE == 'FOU':

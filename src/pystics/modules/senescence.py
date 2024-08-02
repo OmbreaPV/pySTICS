@@ -5,7 +5,7 @@ from pystics.exceptions import pysticsException
 
 def senescence(i, lev, ulai, somtemp, vlaimax, durviei, durvief, senfac_prev, udevcult, fstressgel,
                dayLAIcreation_list, senstress_list, tdevelop_list, durvie_list, durage_list, deltai_list,
-                somsenreste_prev, lai0, ndebsen, dltafv_list, ratiosen, forage, msres_prev, msresiduel, msresjaune_prev, codlainet):
+                somsenreste_prev, lai0, ndebsen, dltafv_list, ratiosen, forage, msres_prev, msresiduel, msresjaune_prev, codlainet, pfeuilverte_list, dltams_list):
     '''
     This module computes leaf and biomass senescence.
     See section 4.1.2 of STICS book.
@@ -76,7 +76,7 @@ def senescence(i, lev, ulai, somtemp, vlaimax, durviei, durvief, senfac_prev, ud
                 ndebsen = i
                 if codlainet == 2:
                     dltaisen = dltaisen + lai0
-                dltamsen =  dltafv_list[i] * ratiosen
+                dltamsen =  pfeuilverte_list[i] * ratiosen * dltams_list[i]
 
             somsen = somsenreste_prev + tdevelop_list[int(dayLAIcreation_list[i]):i+1].sum()
             while deltai_disappears: # as long as deltai become senescent, we check senescence of following day (several deltai can become senescent on day i)
@@ -89,7 +89,7 @@ def senescence(i, lev, ulai, somtemp, vlaimax, durviei, durvief, senfac_prev, ud
                     if codlainet == 2:
                         dltaisen = dltaisen + deltai_list[j]
                     somsen = somsen - durvie_list[j]
-                    dltamsen = dltamsen + ratiosen * dltafv_list[j]
+                    dltamsen = dltamsen + ratiosen * pfeuilverte_list[j] * dltams_list[j]
                     nb_deltai_senescent +=1
                 else:
                     deltai_disappears = False

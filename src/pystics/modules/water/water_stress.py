@@ -86,3 +86,27 @@ def temporary_wilting_point(psisto_or_psiturg, eop, cumlracz,rayon, zrac):
                 )
             )
 
+
+def water_stress_on_root_growth(hur, hmin, hcc, sensrsec, code_humirac):
+    '''
+    This module computes the effect of soil water content on germination and root growth.
+    '''
+
+    if code_humirac == 0:
+        return 1
+
+    if code_humirac == 2:
+        if hur > hmin:
+            x = (hur - hmin) / (hcc - hmin)
+            humirac = sensrsec + (1-sensrsec) * hur
+        else:
+            humirac = sensrsec * hur / hmin
+    else:
+        if hur >= hmin:
+            humirac = 1
+        else:
+            humirac = sensrsec * hur / hmin
+
+    humirac = np.clip(humirac, 0, 1)
+
+    return humirac

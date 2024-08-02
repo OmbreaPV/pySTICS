@@ -49,6 +49,7 @@ def initialize_outputs_df(weather, crop, manage, initial):
         "fstressgel",
         'day_lai_creation',
         "dltafv",
+        "pfeuilverte",
         "dltat",
         "dltares",
         "dltaremobsen",
@@ -88,7 +89,7 @@ def initialize_outputs_df(weather, crop, manage, initial):
         'lan',
         "drp",
         "udevcult",
-        "udevcult_lev",
+        "udev",
         "rfpi",
         "jvi",
         "plt",
@@ -152,7 +153,8 @@ def initialize_outputs_df(weather, crop, manage, initial):
         'water_stress_day','water_stress_day_value','thermal_stress_day','thermal_stress_day_value',
         'sumes0','sumes1','sumes2','ses2j0','sesj0','smes02','nstoc','stoc',
         'resrac', 'humirac_mean',
-        'cumdltaremobil','sla','somcour', 'tursla', 'rec'
+        'cumdltaremobil','sla','somcour', 'tursla', 'rec',
+        'stopfeuille_stage', 'somelong'
         
     ]
 

@@ -1,5 +1,5 @@
 import numpy as np
-
+from pystics.modules.water.water_stress import water_stress_on_root_growth
 
 def root_growth(ger_i, lax_i, sen_i, rec_i, stoprac, codeperenne, findorm_i, profsem, zrac, codetemprac,
                 tcult_prev, tcmax, tcmin, tgmin, croirac, hur_i, tsol_i, hmin, sensrsec, depth, daseuilbas, daseuilhaut, contrdamax, daf, lev_i, hcc, herbaceous, znonli):
@@ -41,34 +41,15 @@ def root_growth(ger_i, lax_i, sen_i, rec_i, stoprac, codeperenne, findorm_i, pro
         
 
         # Water stress affecting root growth
-        hur_mean = hur_i[ap].mean()
-        humin_mean = hmin[ap].mean()
-        if lev_i == 0:
-            hcc_mean = hcc[ap].mean()
-            if hur_mean > humin_mean:
-                x = (hur_mean - humin_mean) / (hcc_mean - humin_mean)
-                humirac_ap = np.clip(sensrsec + (1 - sensrsec) * x, 0, 1)
-            elif hur_mean <= humin_mean:
-                humirac_ap = np.clip(hur_mean * sensrsec / humin_mean, 0, 1)
-        else:
-            if hur_mean >= humin_mean:
-                humirac_ap = 1
-            elif hur_mean < humin_mean:
-                humirac_ap = np.clip(hur_mean * sensrsec / humin_mean, 0, 1)
+        len_ap = len([i for i in ap])
+        hur_ap = sum([hur_i[z_index] for z_index in ap]) / len_ap
+        hmin_ap = sum([hmin[z_index] for z_index in ap]) / len_ap
+        hcc_ap = sum([hcc[z_index] for z_index in ap]) / len_ap
 
-        # Water stress on whole depth
-        humirac_i = np.array([0 for i in range(len(hur_i))])
         if lev_i == 0:
-            root_range = range(max(0,int(profsem)-1), max(int(profsem)+1,int(min(round(zrac), depth))))
-            x = (hur_i - hmin) / (hcc - hmin)
-            humirac_i[hur_i > hmin] = np.clip(sensrsec + (1 - sensrsec) * x[hur_i > hmin], 0, 1)
-            humirac_i[hur_i <= hmin] = np.clip(hur_i[hur_i <= hmin] * sensrsec / hmin[hur_i <= hmin], 0, 1)
+            humirac_ap = water_stress_on_root_growth(hur_ap, hmin_ap, hcc_ap, sensrsec, 2)
         else:
-            root_range = range(max(0,int(profsem)-1), int(min(round(zrac), depth)))
-            humirac_i[hur_i >= hmin] = 1
-            humirac_i[hur_i < hmin] = np.clip(hur_i[hur_i < hmin] * sensrsec / hmin[hur_i < hmin], 0, 1)
-        humirac_mean = np.mean(humirac_i[root_range])
-
+            humirac_ap = water_stress_on_root_growth(hur_ap, hmin_ap, hcc_ap, sensrsec, 1)
 
         # Stress component of root growth
         deltaz_stress = humirac_ap * efda
@@ -81,7 +62,7 @@ def root_growth(ger_i, lax_i, sen_i, rec_i, stoprac, codeperenne, findorm_i, pro
         znonli = znonli + deltaz
         deltaz = deltaz * compute_root_growth
 
-    return zrac, deltaz, deltaz_t, deltaz_stress, efda, znonli, humirac_mean
+    return zrac, deltaz, deltaz_t, deltaz_stress, efda, znonli
 
 def root_density(lracz_i, zrac, znonli, depth, zprlim, zpente, ger_i, codeperenne, lvopt, s, profsem,
                  hur_i, hmin, humirac_i):
@@ -92,6 +73,8 @@ def root_density(lracz_i, zrac, znonli, depth, zprlim, zpente, ger_i, codeperenn
         - True density approach (coderacine=1) is not implemented.
     '''
 
+    humirac_mean = 1
+
     # Necessary root depth to absorb 20% of water
     zdemi = max(znonli - zprlim + zpente, (np.log(4) / s))
 
@@ -101,7 +84,9 @@ def root_density(lracz_i, zrac, znonli, depth, zprlim, zpente, ger_i, codeperenn
 
         # Water stress index affecting root density
         humirac_i[hur_i >= hmin] = 1
-        humirac_i[hur_i < hmin] = np.minimum(1, np.maximum(0, 0 * hur_i[hur_i < hmin] / hmin[hur_i < hmin])) 
+        humirac_i[hur_i < hmin] = np.minimum(1, np.maximum(0, 0 * hur_i[hur_i < hmin] / hmin[hur_i < hmin]))
+        root_range = range(max(0,int(profsem)-1), max(int(profsem)+1,int(min(round(zrac), depth))))
+        humirac_mean = np.mean(humirac_i[root_range])
 
         # Root density
         root_range = range(max(0,int(profsem)-1), round(zrac_max))
@@ -110,7 +95,7 @@ def root_density(lracz_i, zrac, znonli, depth, zprlim, zpente, ger_i, codeperenn
     # Cumulated root length density
     cumlracz = lracz_i.sum()
 
-    return lracz_i, cumlracz, zdemi, humirac_i
+    return lracz_i, cumlracz, zdemi, humirac_i, humirac_mean
 
 
 def compute_efda(daf, daseuilbas, daseuilhaut, contrdamax):

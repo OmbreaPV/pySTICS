@@ -16,11 +16,12 @@ def leaf_growth(i, lev_i, lax_i, sum_upvt_post_lev, stlevamf, vlaimax, stamflax,
     dltaisen = dltaisen_prev.copy()
 
     # Leaf growth stop criteria
-    compute_leaf_growth = True
     if ((stopfeuille == 'LAX') & (lax_i == 1)): # determinate growth crops
-        compute_leaf_growth = False
+        stopfeuille_stage = 1
+    else:
+        stopfeuille_stage = 0
 
-    if compute_leaf_growth & (lev_i == 1):
+    if (lev_i == 1) & (stopfeuille_stage == 0):
         
         # Development effect on leaf growth
         ulai = np.where(
@@ -108,7 +109,7 @@ def leaf_growth(i, lev_i, lax_i, sum_upvt_post_lev, stlevamf, vlaimax, stamflax,
     if (codlainet == 1) & (codeindetermin == 1) & (lax_i > 0):
         deltai = 0
     
-    # Senescence
+    # Senescence between sen and lan for codlainet = 1
     if codlainet == 1:
         lai = lai_prev + deltai - dltaisenat_prev
 
@@ -145,4 +146,4 @@ def leaf_growth(i, lev_i, lax_i, sum_upvt_post_lev, stlevamf, vlaimax, stamflax,
         sen[i] = 1
         lan_i = 1
 
-    return deltai, deltai_dev, deltai_dens, deltai_t, ulai, deltai_stress, efdensite, vmax, lai, mafeuilverte, dltaisen, dltaisenat, laisen, lan_i, sen[i], ratiotf
+    return deltai, deltai_dev, deltai_dens, deltai_t, ulai, deltai_stress, efdensite, vmax, lai, mafeuilverte, dltaisen, dltaisenat, laisen, lan_i, sen[i], ratiotf, stopfeuille_stage

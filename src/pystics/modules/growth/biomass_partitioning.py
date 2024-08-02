@@ -23,7 +23,8 @@ def cumultative_partitioning(lev, mafeuil, matigestruc, mafruit_prev, maenfruit_
     restempmax = 10 * resplmax * densite
     if restemp > restempmax:
         dltams = 0
-
+    
+    dltarestemp = max(0, restemp-restempmax)
 
     ##############################
     ### Reserves remoblisation ###
@@ -66,4 +67,4 @@ def cumultative_partitioning(lev, mafeuil, matigestruc, mafruit_prev, maenfruit_
     # Sink / source ratio after remobilisation
     sourcepuits = (dltams + dltaremobil) / (fpv + fpft) if fpv + fpft != 0 else 1 # same as sourcepuits1 here ?
 
-    return dltaremobil
+    return dltaremobil, restemp, dltams, fpv, sourcepuits, dltarestemp
