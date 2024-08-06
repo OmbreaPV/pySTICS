@@ -12,9 +12,8 @@ def water_stress(eop, swfacmin, rapsenturg, cumlracz, psiturg, psisto, rayon, zr
     if zrac > 0:
         
         # Available water in the root zone
-        resrac = 0.
-        for z_index in range(max(0,int(profsem)-1), min(depth, int(zrac)+1)):
-            resrac = resrac + max(hur_i_prev[z_index] - hmin[z_index], 0.)
+        root_range = range(max(0,int(profsem)-1), min(depth, int(zrac)+1))
+        resrac = np.maximum(hur_i_prev[root_range] - hmin[root_range], 0.).sum()
 
         teta = resrac / (10 * zrac)
 
@@ -23,66 +22,20 @@ def water_stress(eop, swfacmin, rapsenturg, cumlracz, psiturg, psisto, rayon, zr
 
         if cumlracz == 0:
             swfac = swfacmin
-            senfac = swfacmin
+            if rapsenturg != 0:
+                senfac = swfacmin
             turfac = swfacmin
         
         elif eop > 0:
 
             # Temporary wilting point for swfac
-            tetstomate = (
-                1
-                / 80
-                * np.log(
-                    eop
-                    / (
-                        2
-                        * np.pi
-                        * cumlracz
-                        * psisto
-                        * 0.0001
-                    )
-                    * np.log(
-                        1
-                        / (
-                            rayon
-                            * (np.pi * 
-                                cumlracz
-                                / zrac
-                            )
-                            ** (1 / 2)
-                        )
-                    )
-                )
-            )
-            
+            tetstomate = temporary_wilting_point(psisto, eop, cumlracz,rayon, zrac)
+
            # Water content threshold for turfac
-            teturg = (
-                1
-                / 80
-                * np.log(
-                    eop
-                    / (
-                        2
-                        * np.pi
-                        * cumlracz
-                        * psiturg
-                        * 0.0001
-                    )
-                    * np.log(
-                        1
-                        / (
-                            rayon
-                            * (np.pi * cumlracz / zrac)
-                            ** (1 / 2)
-                        )
-                    )
-                )
-            )
+            teturg = temporary_wilting_point(psiturg, eop, cumlracz,rayon, zrac)
 
             # Water content threshold for senfac
-            tetsen = (
-                rapsenturg * teturg
-            ) 
+            tetsen = rapsenturg * teturg
 
             # Turgescence water stress index
             turfac = (
@@ -99,10 +52,61 @@ def water_stress(eop, swfacmin, rapsenturg, cumlracz, psiturg, psisto, rayon, zr
             )
 
             # Water stress index increasing senescence rate
-            senfac = (
-                1
-                if teta  >= tetsen
-                else max(swfacmin, teta / tetsen)
-            )
+            if rapsenturg > 0:
+                senfac = (
+                    1
+                    if teta  >= tetsen
+                    else max(swfacmin, teta / tetsen)
+                )
+
 
     return teta, swfac, tetstomate, turfac, teturg, senfac, tetsen, resrac
+
+
+def temporary_wilting_point(psisto_or_psiturg, eop, cumlracz,rayon, zrac):
+    return (1
+                / 80
+                * np.log(
+                    eop
+                    / (
+                        2
+                        * np.pi
+                        * cumlracz
+                        * psisto_or_psiturg
+                        * 0.0001
+                    )
+                    * np.log(
+                        1
+                        / (
+                            rayon
+                            * (np.pi * cumlracz / zrac)
+                            ** (1 / 2)
+                        )
+                    )
+                )
+            )
+
+
+def water_stress_on_root_growth(hur, hmin, hcc, sensrsec, code_humirac):
+    '''
+    This module computes the effect of soil water content on germination and root growth.
+    '''
+
+    if code_humirac == 0:
+        return 1
+
+    if code_humirac == 2:
+        if hur > hmin:
+            x = (hur - hmin) / (hcc - hmin)
+            humirac = sensrsec + (1-sensrsec) * hur
+        else:
+            humirac = sensrsec * hur / hmin
+    else:
+        if hur >= hmin:
+            humirac = 1
+        else:
+            humirac = sensrsec * hur / hmin
+
+    humirac = np.clip(humirac, 0, 1)
+
+    return humirac

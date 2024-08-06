@@ -14,13 +14,7 @@ def plant_soil_water_potential(lev_i_prev, zrac0, depth, psihucc, psihumin, daf,
 
     # Predawn leaf water potential
     if ((lev_i_prev == 1) | (zrac0 != 0)) & (zrac != 0):
-        # print('zrac',zrac)
-        # print('psisol_i > -1.5',psisol_i > -1.5)
-        # print('lracz_i[psisol_i > -1.5]',lracz_i[psisol_i > -1.5])
-        
         racinepsi_i[psisol_i > -1.5] = lracz_i[psisol_i > -1.5]
-        # print(' racinepsi_i', racinepsi_i)
-        # print('racinepsi_i[max(0,int(profsem)-1):round(zrac)+1].sum()',racinepsi_i[max(0,int(profsem)-1):round(zrac)+1].sum())
         psibase = (psisol_i[max(0,int(profsem)-1):int(zrac)+1] * psisol_i[max(0,int(profsem)-1):int(zrac)+1]).sum() / racinepsi_i[max(0,int(profsem)-1):round(zrac)+1].sum()
     else:
         psibase = 0

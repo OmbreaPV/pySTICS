@@ -1,6 +1,6 @@
 import numpy as np
 
-def biomass_production(masec_prev, raint, lev, amf_prev, drp_prev, efcroijuv, efcroirepro, efcroiveg,
+def biomass_production(raint, lev, amf_prev, drp_prev, efcroijuv, efcroirepro, efcroiveg,
                              coefb, swfac_prev, fco2, ftemp, deltai, slamax):
     '''
     This module computes the daily aerial biomass production according to phenological stage, radiation, thermal and water stress, and CO2 effect.
@@ -27,11 +27,9 @@ def biomass_production(masec_prev, raint, lev, amf_prev, drp_prev, efcroijuv, ef
 
     # Green leaf biomass production
     dltafv = min(deltai / slamax * 100, dltams)
+    pfeuilverte = min(1, (deltai / slamax * 100) / dltams) if dltams > 0 else 0
 
-    # Cumulated aboveground biomass
-    masec = masec_prev + dltams
-
-    return dltams, masec, ebmax, dltafv
+    return dltams, ebmax, dltafv, pfeuilverte
 
 def shoot_biomass_production(radiation, ebmax, coefb, ftemp, swfac_prev, fco2):
     """

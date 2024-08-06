@@ -1,19 +1,20 @@
 import numpy as np
 from pystics.modules.growth.thermal_stress_indices import frost_stress
+from pystics.modules.water.water_stress import water_stress_on_root_growth
 
 def emergence_macro(i, outputs, crop, soil, manage, tsol, humirac, hur, humpotsol):
-    outputs['moist'], outputs.loc[i,'nbjgrauto'], outputs.loc[i,'nbjhumec'], humirac, outputs.loc[i,'somger'], outputs['ger'], outputs.loc[i,'zrac'], outputs.loc[i,'elong'], outputs['lev'], outputs.loc[i,'coeflev'], outputs['densite'], outputs['let'], outputs.loc[i,'udevcult_lev'], outputs.loc[i,'somfeuille'], outputs.loc[i,'nbfeuille'], outputs.loc[i,'fgellev'] = emergence(i, outputs['densite'].array, outputs['lev'].array, outputs.loc[i-1,'lev'], outputs['ger'].array, outputs.loc[i-1,'ger'], outputs['moist'].array, outputs.loc[i-1,'moist'], outputs['let'].array, manage.PROFSEM, hur[i], humpotsol[i], crop.PROPJGERMIN, crop.NBJGERLIM, crop.TDMAX, crop.TDMIN, crop.TGMIN,
+    outputs['moist'], outputs.loc[i,'nbjgrauto'], outputs.loc[i,'nbjhumec'], humirac, outputs.loc[i,'somger'], outputs['ger'], outputs.loc[i,'zrac'], outputs.loc[i,'elong'], outputs['lev'], outputs.loc[i,'coeflev'], outputs['densite'], outputs['let'], outputs.loc[i,'udev'], outputs.loc[i,'somfeuille'], outputs.loc[i,'nbfeuille'], outputs.loc[i,'fgellev'], outputs.loc[i,'somelong'] = emergence(i, outputs['densite'].array, outputs['lev'].array, outputs.loc[i-1,'lev'], outputs['ger'].array, outputs.loc[i-1,'ger'], outputs['moist'].array, outputs.loc[i-1,'moist'], outputs['let'].array, manage.PROFSEM, hur[i], humpotsol[i], crop.PROPJGERMIN, crop.NBJGERLIM, crop.TDMAX, crop.TDMIN, crop.TGMIN,
                                          tsol, outputs.loc[i-1,'nbjhumec'], soil.HMIN, crop.SENSRSEC, soil.HCC, outputs.loc[i-1,'somger'], crop.STPLTGER, tsol[i], manage.DENSITESEM, crop.CODEHYPO,
-                                         outputs.loc[i,'zrac'], crop.BELONG, crop.CELONG, crop.ELMAX, outputs.loc[i-1,'tcult'], crop.NLEVLIM1, crop.NLEVLIM2, crop.TCXSTOP, outputs.loc[i-1,'somfeuille'], outputs.loc[i,'nbfeuille'], outputs.loc[i,'temp_min'],
-                                         crop.TGELLEV90, crop.TGELLEV10, crop.TLETALE, crop.TDEBGEL, crop.PHYLLOTHERME, crop.NBFGELLEV, humirac, soil.DEPTH, crop.CODGELLEV, outputs.loc[i-1,'let'])
+                                         outputs.loc[i,'zrac'], crop.BELONG, crop.CELONG, crop.ELMAX, outputs.loc[i-1,'tcult'], crop.NLEVLIM1, crop.NLEVLIM2, crop.TCXSTOP, outputs.loc[i-1,'somfeuille'], outputs.loc[i,'nbfeuille'], outputs.loc[i-1,'temp_min'],
+                                         crop.TGELLEV90, crop.TGELLEV10, crop.TLETALE, crop.TDEBGEL, crop.PHYLLOTHERME, crop.NBFGELLEV, humirac, soil.DEPTH, crop.CODGELLEV, outputs.loc[i-1,'let'], outputs.loc[i-1,'somelong'], crop.CODETEMP, outputs.loc[i,'temp'])
 
     return outputs, humirac
 
 
 def emergence(i, densite_list, lev, lev_i_prev, ger, ger_i_prev, moist, moist_i_prev, let, profsem, hur_i, humpotsol_i, propjgermin, nbjgerlim, tdmax, tdmin,tgmin,
               tsol, nbjhumec_prev, hmin, sensrsec, hcc, somger_prev, stpltger, tsol_i, densitesem, codehypo,
-              zrac, belong, celong, elmax, tcult_prev, nlevlim1, nlevlim2, tcxstop, somfeuille_prev, nbfeuille, temp_min,
-            tgellev90,tgellev10, tletale, tdebgel, phyllotherme, nbfgellev, humirac, depth, codgellev, let_i_prev):
+              zrac, belong, celong, elmax, tcult_prev, nlevlim1, nlevlim2, tcxstop, somfeuille_prev, nbfeuille, temp_min_prev,
+            tgellev90,tgellev10, tletale, tdebgel, phyllotherme, nbfgellev, humirac, depth, codgellev, let_i_prev, somelong_prev, codetemp, temp):
     '''
     This module computes emergence of herbaceous plants : moistening, germination and plantlet growth.
     See Section 3.4.1.3 of STICS book.
@@ -22,7 +23,7 @@ def emergence(i, densite_list, lev, lev_i_prev, ger, ger_i_prev, moist, moist_i_
         - Soil crusting not implemented
     '''
 
-    nbjgrauto, nbjhumec, somger, lev_i, elong, coeflev, udevcult_lev, somfeuille, fgellev = 0,0,0,0,0,0,0,0,1
+    nbjgrauto, nbjhumec, somger, lev_i, elong, coeflev, udev, somfeuille, fgellev, somelong = 0,0,0,0,0,0,0,0,1, 0
 
     if ger_i_prev == 0: 
         
@@ -49,17 +50,19 @@ def emergence(i, densite_list, lev, lev_i_prev, ger, ger_i_prev, moist, moist_i_
         ###################
 
         # Water stress index affecting germination
-        for z_index in sb:
-            if hur_i[z_index] > hmin[z_index]:  
-                humirac[i,z_index] = 1
-            else:
-                humirac[i,z_index] = min(1, max(0, sensrsec * hur_i[z_index] / hmin[z_index]))
-            
+        len_sb = len([i for i in sb])
+        hur_sb = sum([hur_i[z_index] for z_index in sb]) / len_sb
+        hmin_sb = sum([hmin[z_index] for z_index in sb]) / len_sb
+        hcc_sb = sum([hcc[z_index] for z_index in sb]) / len_sb
+
+        humirac[i,sb] = water_stress_on_root_growth(hur_sb, hmin_sb, hcc_sb, sensrsec, 2)
+
         # Growing degree days to reach germination
-        somger = somger_prev + max(0, tsol_i[sb].mean() - tgmin) * humirac[i,sb].mean() # does not depend on sowing day because this module is called when plt=1
-        if somger > stpltger:
+        somger = somger_prev + max(0, tsol_i[int(profsem)] - tgmin) * humirac[i,sb].mean() # does not depend on sowing day because this module is called when plt=1
+        if somger >= stpltger:
             ger[i:len(ger)] = 1
             zrac = profsem
+            somelong = somger - stpltger
 
         # Plant density reduction because of late germination after humectation
         if nbjhumec >  nbjgrauto:
@@ -75,28 +78,28 @@ def emergence(i, densite_list, lev, lev_i_prev, ger, ger_i_prev, moist, moist_i_
         ### PLANTLET GROWTH ###
         #######################
         if codehypo == 2:
-            lev_i = 1
+            lev[i] = 1
         
         else:
 
             sb = range(max(0,int(profsem) - 1),int(profsem) + 2)
             hb = range(sb[0], min(max(sb[-1],int(zrac))+1, depth))
 
-            # Water stress index affecting elongation
-            for z_index in hb: 
-                if hur_i[z_index] > hmin[z_index]:  
-                    humirac[i,z_index] = 1
-                else:
-                    humirac[i,z_index] = min(1, max(0, sensrsec * hur_i[z_index] / hmin[z_index]))
+            len_hb = len([i for i in hb])
+            hur_hb = sum([hur_i[z_index] for z_index in hb]) / len_hb
+            hmin_hb = sum([hmin[z_index] for z_index in hb]) / len_hb
+            hcc_hb = sum([hcc[z_index] for z_index in hb]) / len_hb
+
+            somelong = somelong_prev + max(0, tsol_i[int(profsem)] - tgmin) * water_stress_on_root_growth(hur_hb, hmin_hb, hcc_hb, sensrsec, 2)
 
             # Plantlet elongation
-            elong = elmax * (1 - np.exp(-(belong* np.nanmean(humirac[ind_ger:i,hb] * np.maximum(0,tsol[ind_ger:i,hb] - tgmin), axis=1).sum())**celong))
+            elong = elmax * (1 - np.exp(-(belong* somelong)**celong))
 
             # Emergence
             if elong > profsem:
                 lev[i:len(lev)] = 1
 
-    if (lev_i_prev == 0) and (lev_i == 1): # emergence day
+    if (lev_i_prev == 0) and (lev[i] == 1): # emergence day
 
         # Germination and emergence dates
         ind_ger = np.where(ger > 0)[0][0]
@@ -113,20 +116,19 @@ def emergence(i, densite_list, lev, lev_i_prev, ger, ger_i_prev, moist, moist_i_
         # Density reduction because of late emergence after germination
         densite_list[i] = densite_list[ind_ger] * coeflev
 
-
-    if (lev_i_prev == 1) and (let_i_prev == 0): # frost sensitivty period
-
+    
+    if lev[i] == 1:
         # Thermal time of day i
-        udevcult_lev = max(0, tcult_prev - tdmin)
-        if tcxstop >= 100:
-            if tcult_prev > tdmax:
-                udevcult_lev = tdmax - tdmin
-        else:
-            if tcult_prev > tdmax:
-                udevcult_lev = max(0,(tdmax - tdmin) * (tcult_prev - tcxstop) / (tdmax - tcxstop))
+        if codetemp == 1:
+            udev = effective_temperature(temp, tdmax, tdmin, tcxstop)
+        elif codetemp == 2:
+            udev = effective_temperature(tcult_prev, tdmax, tdmin, tcxstop)
 
         # Cumulated thermal time
-        somfeuille = somfeuille_prev + udevcult_lev
+        somfeuille = somfeuille_prev + udev
+
+
+    if (lev_i_prev == 1) and (let_i_prev == 0): # frost sensitivty period
 
         # Leaves number
         if somfeuille > phyllotherme:
@@ -134,7 +136,7 @@ def emergence(i, densite_list, lev, lev_i_prev, ger, ger_i_prev, moist, moist_i_
             somfeuille  = somfeuille - phyllotherme
 
         # Frost sensitivity period end
-        if nbfeuille >= nbfgellev:
+        if nbfeuille > nbfgellev:
             let[i:len(let)] = 1
         elif (codgellev == 2):
             # Emergence date
@@ -142,7 +144,7 @@ def emergence(i, densite_list, lev, lev_i_prev, ger, ger_i_prev, moist, moist_i_
 
             # Frost stress affecting density
             fgellev = frost_stress(
-            temp_min,
+            temp_min_prev,
             tgellev90,
             tgellev10,
             tletale,
@@ -152,7 +154,7 @@ def emergence(i, densite_list, lev, lev_i_prev, ger, ger_i_prev, moist, moist_i_
             # Density reduction
             densite_list[i] = min(densite_list[i], densite_list[ind_lev] * fgellev) # fgellev not applied to densite(i-1) but to densite(lev)
 
-    return moist, nbjgrauto, nbjhumec, humirac, somger, ger, zrac, elong, lev, coeflev, densite_list, let, udevcult_lev, somfeuille, nbfeuille, fgellev
+    return moist, nbjgrauto, nbjhumec, humirac, somger, ger, zrac, elong, lev, coeflev, densite_list, let, udev, somfeuille, nbfeuille, fgellev, somelong
 
 
 def budding(i, codedormance, q10, temp_max_list, temp_min_list, jvc, lev_i_prev, tdmindeb, tdmaxdeb, hourly_temp, gdh_prev,stdordebour):
@@ -214,7 +216,7 @@ def budding(i, codedormance, q10, temp_max_list, temp_min_list, jvc, lev_i_prev,
     return findorm_i, cu, lev_i_prev, thn, gdh, lev_i
 
 
-def development_temperature(tcult_prev, temp, tdmax, tdmin, tcxstop, coderetflo, stressdev, turfac_prev, codetemp, somtemp_prev):
+def development_temperature(tcult_prev, temp, tdmax, tdmin, tcxstop, coderetflo, stressdev, turfac_prev, codetemp, somtemp_prev, drp_i_prev):
     '''
     This module computes development temperature for phenology.
     See Section 3.3.2 of STICS book.
@@ -222,26 +224,31 @@ def development_temperature(tcult_prev, temp, tdmax, tdmin, tcxstop, coderetflo,
     
     # Air or crop temperature
     if codetemp == 1:
-        temp_consid = temp 
+        udevcult = effective_temperature(temp, tdmax, tdmin, tcxstop)
     elif codetemp == 2:
-        temp_consid = tcult_prev
+        udevcult = effective_temperature(tcult_prev, tdmax, tdmin, tcxstop)
     
-    # Development temperature
-    udevcult = max(0, temp_consid - tdmin)
-    if temp_consid > tdmax:
-        if tcxstop >= 100:
-            udevcult = tdmax - tdmin
-        else:
-            udevcult = max(0,(tdmax - tdmin) * (temp_consid - tcxstop) / (tdmax - tcxstop))
-    
-    # Crop sensitive to water stress
-    if coderetflo == 1:
+    # Crop sensitive to water stress during vegetative phase
+    if (coderetflo == 1) & (drp_i_prev == 0):
         udevcult = udevcult * (stressdev * turfac_prev + 1 - stressdev)
 
     tdevelop = 2 ** (udevcult / 10)
     somtemp = somtemp_prev + tdevelop
 
     return udevcult, somtemp
+
+
+def effective_temperature(temp, tdmax, tdmin, tcxstop):
+
+    # Development temperature
+    udevcult = max(0, temp - tdmin)
+    if temp > tdmax:
+        if tcxstop >= 100:
+            udevcult = tdmax - tdmin
+        else:
+            udevcult = max(0,(tdmax - tdmin) * (temp - tcxstop) / (tdmax - tcxstop))
+    
+    return udevcult
 
 
 def photoperiod_effect(herbaceous, lev_i, findorm_i, drp_i_prev, sensiphot, phoi, phosat, phobase):
@@ -273,7 +280,7 @@ def photoperiod_effect(herbaceous, lev_i, findorm_i, drp_i_prev, sensiphot, phoi
     
     return rfpi
 
-def vernalisation_effect(herbaceous, codebfroid, ger_i, tfroid, tcult_prev, ampfroid, jvi_list, jvcmini, jvc, findorm_i):
+def vernalisation_effect(herbaceous, codebfroid, ger_i, tfroid, tcult_prev, ampfroid, jvi_list, jvcmini, jvc, findorm_i, doy, julvernal, codeperenne, rfvi, vernalisation_ongoing):
     '''
     This module computes the vernalisation effect on development.
     For herbaceous plants, vernalisation effect is computed from germination, it varies between 0 and 1 until chilling requirements are met.
@@ -281,10 +288,17 @@ def vernalisation_effect(herbaceous, codebfroid, ger_i, tfroid, tcult_prev, ampf
     See section 3.3.4 of STICS book.
     '''
 
-    rfvi, jvi = 1, 0
-    if herbaceous & (codebfroid == 2):
-        if ger_i == 1:
+    jvi = 0
 
+    # Activate vernalisation on germination for annual, and on julvernal day for perennial crops
+    condition_annual = (codeperenne == 1) & (codebfroid == 2) & (ger_i == 1)
+    condition_perennial = (codeperenne == 2) & (codebfroid != 1)
+    
+    if doy == julvernal:
+        vernalisation_ongoing = True
+
+    if vernalisation_ongoing & (condition_annual | condition_perennial):
+        if herbaceous:
             # Number of vernalising days
             jvi = max(
                 (
@@ -310,20 +324,18 @@ def vernalisation_effect(herbaceous, codebfroid, ger_i, tfroid, tcult_prev, ampf
                 < 1
                 else 1
             ) 
-        else:
-            rfvi = 0 
-    elif (
-        not herbaceous
-    ):
-        if codebfroid != 1:
-            if findorm_i == 0:
-                rfvi = 0
+            
+        elif findorm_i == 1:
+            rfvi = 1
+        
+        if rfvi == 1:
+            vernalisation_ongoing = False
 
-    return rfvi, jvi
+    return rfvi, jvi, vernalisation_ongoing
 
 
 def phenological_stage(lev_i, udevcult, rfpi, rfvi, sum_upvt_post_lev_prev, stlevamf, stamflax, stlevdrp, stflodrp,
-               stdrpdes, codeindetermin, stdrpmat, stdrpnou, codlainet, stlaxsen, stsenlan):
+               stdrpdes, codeindetermin, stdrpmat, stdrpnou, codlainet, stlaxsen, stsenlan, lan_i_prev, somcour_prev):
     '''
     This module computes the phenological stage.
     Temperature acts on development from germination for herbaceous plants, and from dormancy break for ligneous plants.
@@ -342,84 +354,55 @@ def phenological_stage(lev_i, udevcult, rfpi, rfvi, sum_upvt_post_lev_prev, stle
     sum_upvt_post_lev = sum_upvt_post_lev_prev + upvt_post_lev
 
     # amf stage : 1 = amf stage reached, 0 else
-    amf_i = np.where(
-        sum_upvt_post_lev >= stlevamf, 1, 0
-    )
+    amf_i = 1 if sum_upvt_post_lev >= stlevamf else 0
     
     # lax stage : 1 = lax stage reached, 0 else
-    lax_i = np.where(
-        sum_upvt_post_lev
-        >= stlevamf + stamflax,
-        1,
-        0,
-    )
+    lax_i = 1 if sum_upvt_post_lev >= stlevamf + stamflax else 0
     
     # flo stage : 1 = flo stage reached, 0 else
-    flo_i = np.where(
-        sum_upvt_post_lev
-        >= stlevdrp - stflodrp,
-        1,
-        0,
-    )
+    flo_i = 1 if sum_upvt_post_lev >= stlevdrp - stflodrp else 0
 
     # drp stage : 1 = drp stage reached, 0 else
-    drp_i = np.where(
-        sum_upvt_post_lev >= stlevdrp, 1, 0
-    )
+    drp_i = 1 if sum_upvt_post_lev >= stlevdrp else 0
 
     # debdes stage : 1 = debdes stage reached, 0 else
-    debdes_i = np.where(sum_upvt_post_lev >= stlevdrp + stdrpdes, 1, 0)
+    debdes_i = 1 if sum_upvt_post_lev >= stlevdrp + stdrpdes else 0
     
     if codlainet == 1:
-        sen_i =  np.where(
-            sum_upvt_post_lev
-            >= stlevamf + stamflax + stlaxsen,
-            1,
-            0,
-        )
+        sen_i = 1 if sum_upvt_post_lev >= stlevamf + stamflax + stlaxsen else 0
     else:
         sen_i = 0
+    
+    if sen_i == 1:
+        somcour = somcour_prev + upvt_post_lev
+    else:
+        somcour = 0
 
+    if lan_i_prev == 1:
+        lan_i = 1
     if codlainet == 1:
-        lan_i =  np.where(
-            sum_upvt_post_lev
-            >= stlevamf + stamflax + stlaxsen + stsenlan,
-            1,
-            0,
-        )
+        lan_i = 1 if sum_upvt_post_lev >= stlevamf + stamflax + stlaxsen + stsenlan else 0
     else:
         lan_i = 0
 
     if codeindetermin == 1:
-
         # mat stage : 1 = mat stage reached, 0 else
-        mat_i = np.where(
-            sum_upvt_post_lev
-            >= stlevdrp + stdrpmat,
-            1,
-            0,
-        )
+        mat_i = 1 if sum_upvt_post_lev >= stlevdrp + stdrpmat else 0
     else:
         mat_i = lax_i
 
     if codeindetermin == 2:
-
         # nou stage : 1 = nou stage reached, 0 else
-        nou_i = np.where(
-            sum_upvt_post_lev >= stlevdrp + stdrpnou,
-            1,
-            0,
-        ) 
+        nou_i = 1 if sum_upvt_post_lev >= stlevdrp + stdrpnou else 0
 
     if codeindetermin == 1:
-        return upvt_post_lev, sum_upvt_post_lev, amf_i, lax_i, flo_i, drp_i, debdes_i, mat_i, sen_i, lan_i, sum_upvt_post_lev
+        return upvt_post_lev, sum_upvt_post_lev, amf_i, lax_i, flo_i, drp_i, debdes_i, mat_i, sen_i, lan_i, somcour
     elif codeindetermin == 2:
-        return upvt_post_lev, sum_upvt_post_lev, amf_i, lax_i, flo_i, drp_i, debdes_i, mat_i, sen_i, lan_i,  sum_upvt_post_lev, nou_i
+        return upvt_post_lev, sum_upvt_post_lev, amf_i, lax_i, flo_i, drp_i, debdes_i, mat_i, sen_i, lan_i, nou_i, somcour
 
 
 
-def phenological_stage_dates(lev, amf, debdes, drp, nou, flo, findorm, mat, lax, sum_upvt_list,
-                                stlevdrp, codeindetermin, codeperenne):
+def phenological_stage_dates(lev, amf, debdes, drp, nou, flo, findorm, mat, lax, codeindetermin, codeperenne):
     '''
     This module retrieves dates (julian days) of phenological stages, and associated BBCH codes.
     '''
