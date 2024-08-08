@@ -91,7 +91,7 @@ def run_pystics_simulation(weather : pd.DataFrame, crop : CropParams, soil : Soi
     ### Daily loop ###
     ##################
     for i in range(1, len(outputs)-1):
-
+        
         #########################################################
         ### Update variables with value from the previous day ###
         #########################################################
@@ -308,7 +308,8 @@ def run_pystics_simulation(weather : pd.DataFrame, crop : CropParams, soil : Soi
         ###################################################################
         ### Iterative calculation of crop temperature and net radiation ###
         ###################################################################
-        outputs.loc[i,'rnet'], outputs.loc[i,'rglo'], outputs.loc[i,'albedolai'], outputs.loc[i,'albsol'], outputs.loc[i,'tcult'], outputs.loc[i,'tcultmax'], outputs.loc[i,'converge'] = iterative_calculation(outputs.loc[i,'temp'], outputs.loc[i-1,'lev'], outputs.loc[i,'temp_max'], outputs.loc[i,'temp_min'], outputs.loc[i,'et'], outputs.loc[i,'z0'], soil.ALBEDO, hur[i,0], soil.HMINF_1, soil.HCCF_1, station.ALBVEG, outputs.loc[i,'lai'], outputs.loc[i,'trg'], outputs.loc[i,'tpm'], outputs.loc[i,'fracinsol'], station.CODERNET)
+        outputs.loc[i,'rnet'], outputs.loc[i,'rglo'], outputs.loc[i,'albedolai'], outputs.loc[i,'albsol'], outputs.loc[i,'tcult'], outputs.loc[i,'tcultmax'], outputs.loc[i,'converge'] = iterative_calculation(outputs.loc[i,'temp'], outputs.loc[i-1,'lev'], outputs.loc[i,'temp_max'], outputs.loc[i,'temp_min'], outputs.loc[i,'et'], outputs.loc[i,'z0'], soil.ALBEDO, hur[i,0], soil.HMINF_1, soil.HCCF_1, station.ALBVEG, outputs.loc[i,'lai'], outputs.loc[i,'trg'], outputs.loc[i,'tpm'], outputs.loc[i,'fracinsol'], station.CODERNET,
+            station.CODECALTEMP, outputs.loc[i,'raint'], constants.PARSURRG, outputs.loc[i,'ratm'], outputs.loc[0,'tcultmin'], outputs.loc[i,'wind'], outputs.loc[0,'tcultmax'], outputs.loc[i,'daylen'], station.ZR, outputs.loc[i-1,'lai'], soil.Z0SOLNU, outputs.loc[i,'hauteur'])
 
         ########################
         ### Soil temperature ###
