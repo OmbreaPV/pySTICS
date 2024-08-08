@@ -66,7 +66,7 @@ def compute_weather_variables(df, station, gamma):
 
     
     # Photoperiod & daylength
-    df[['phoi','daylen']] = df.doy.apply(lambda x: pd.Series(photoperiod(station.LATITUDE, x)))
+    df[['phoi','daylen']] = df.doy.apply(lambda x: pd.Series(photoperiod_and_day_length(station.LATITUDE, x)))
 
     # Hourly temperature
     if 'hourly_temp' not in df.columns:
@@ -94,7 +94,7 @@ def tvar(x):
     return 6.1070 * (1 + 2 ** (1 / 2) * np.sin(0.017453293 * x / 3)) ** 8.827
 
 
-def photoperiod(zlat,jday):
+def photoperiod_and_day_length(zlat,jday):
     ''' 
     This function computes the photoperiod, see STICS implementation.
     '''
@@ -128,7 +128,7 @@ def photoperiod(zlat,jday):
         x1 = np.cos(alat) * np.cos(dec)
         b = -0.01454 / x1
         x2 = np.tan(alat) * np.tan(dec)
-        h = np.acos(b - x2)
+        h = math.acos(b - x2)
         daylen = 24.0 * h / pi
 
     photp = photp[1]

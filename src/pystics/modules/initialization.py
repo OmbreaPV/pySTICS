@@ -82,6 +82,7 @@ def initialize_outputs_df(weather, crop, manage, initial):
         "hauteur",
         "z0",
         "tcultmax",
+        'tcultmin',
         "tcult",
         "lev",
         "flo",
@@ -153,7 +154,7 @@ def initialize_outputs_df(weather, crop, manage, initial):
         'water_stress_day','water_stress_day_value','thermal_stress_day','thermal_stress_day_value',
         'sumes0','sumes1','sumes2','ses2j0','sesj0','smes02','nstoc','stoc',
         'resrac',
-        'ratm', 'daylen','tcultmin', 'humirac_mean',
+        'ratm', 'daylen', 'humirac_mean',
         'cumdltaremobil','sla','somcour', 'tursla', 'rec',
         'stopfeuille_stage', 'somelong'
         

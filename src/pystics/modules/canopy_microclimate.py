@@ -89,10 +89,10 @@ def net_radiation(albedo, hur_i0, hminf_1, hccf_1, albveg, lai, trg, tcult, temp
 
 def crop_temperature(lev_i_prev, temp_max, rnet, et, temp_min, temp, z0, codecaltemp,
     ratm, tcultmin, wind, lai, trg, tcultmax, albedolai, daylen, rnets,
-    ZR, lai_prev, Z0SOLNU, hauteur):
+    zr, lai_prev, z0solnu, hauteur):
     ''''
-    This module computes crop surface temperature with the empirical approach.
-    See Section 9.3.2.1 of STICS book.
+    This module computes crop surface temperature with the empirical approach or energy balance approach.
+    See Section 9.3.2 of STICS book.
     '''
     if lev_i_prev > 0:
     
@@ -106,43 +106,38 @@ def crop_temperature(lev_i_prev, temp_max, rnet, et, temp_min, temp, z0, codecal
             tcultmax = max(tcultmax, temp_max)
             tcultmin = temp_min
 
-        if codecaltemp == 2: # Energy balance method
-             # calcul de la temperature de surface par bilan d'energie (P. Cellier)
-             # on suppose que le rayonnement atmospherique est constant sur la journee
+        elif codecaltemp == 2: # Energy balance method (P. Cellier)
+            # hyp : atm radiation is constant over day
     
             # min & max aerodynamic resistances
-            raamin, _ = calraero(ZR, max(0.02,wind)*0.5, lai_prev, Z0SOLNU, hauteur)
-            raamax, _ = calraero(ZR, max(0.02,wind)*1.5, lai_prev, Z0SOLNU, hauteur)
+            wind_min = max(0.02,wind)*0.5
+            raamin, _ = calraero(zr, wind_min, lai_prev, z0solnu, hauteur)
+            wind_max = max(0.02,wind)*1.5
+            raamax, _ = calraero(zr, wind_max, lai_prev, z0solnu, hauteur)
             
+            ratmh = ratm / 24 * 1e6 / 3600
 
-            Ratmh = ratm / 24 * 1e6 / 3600
-
-            # au mini
             sigma = 5.67e-8
-            Rsolglo = sigma * (tcultmin + 273.15)**4
-            Rglo = Ratmh - Rsolglo
+            rsolglo = sigma * (tcultmin + 273.15)**4
+            rglo = ratmh - rsolglo
 
-            # attenuation du vent sous le couvert
-            v = max(wind * np.exp(-0.96 * lai), 0.2)      # lai => somme des lai de toutes les plantes
-            rnetmin = Rglo
+            # wind reduction
+            v = max(wind * np.exp(-0.96 * lai), 0.2)
+            rnetmin = rglo
             gmin = gsol(6.0,v*0.5,rnetmin,0.0)
             tcultmin = (rnetmin - gmin) * raamin / 1200 + temp_min
 
-            # au maxi
-            # calcul du flux de chaleur sol selon P. Cellier
             etmax = et * 3.14 / 2 / daylen * 2.46 * 1e6 / 3600
             rgmax = trg * 3.14 / 2 / daylen * 1e6 / 3600
 
-            Rsolglo = sigma * (tcultmax + 273.15)**4
-            Rglo = Ratmh - Rsolglo
-            rnetmax = (1 - albedolai) * rgmax + Rglo
+            rsolglo = sigma * (tcultmax + 273.15)**4
+            rglo = ratmh - rsolglo
+            rnetmax = (1 - albedolai) * rgmax + rglo
 
-            # pb de calcul de rnet si trg tres petit
-            if (rnetmax < rnetmin):
-                rnetmax = rnetmin
+            rnetmax = max(rnetmax, rnetmin)
 
-            rnetSmax = rnets / rnet * rnetmax
-            gmax = 0.25 * rnetSmax
+            rnetsmax = rnets / rnet * rnetmax
+            gmax = 0.25 * rnetsmax
             tcultmax = (rnetmax - gmax - etmax) * raamax / 1200 + temp_max
 
         # Crop temperature 
@@ -152,11 +147,13 @@ def crop_temperature(lev_i_prev, temp_max, rnet, et, temp_min, temp, z0, codecal
 
     else: # tcult before emergence does not make sense, but is necessary for soil temperature calculation
         tcult = temp
-        tcultmax = temp_max
 
-    return tcult, tcultmax
+    return tcult, tcultmax, tcultmin
 
 def gsol(heure,v,rnet,hsens):
+    '''
+    This module computes the minimum daily soil heat flux.
+    '''
     # soil radiation
     omega = 2*3.14/24.0
     if (heure <= 7.0 or heure >= 18):
@@ -173,23 +170,26 @@ def gsol(heure,v,rnet,hsens):
         
     return gsol
 
-def calraero(ZR, wind_spd, lai_prev, Z0SOLNU, hauteur):
-    # aerodynamic resistance 
+def calraero(zr, wind, lai_prev, z0solnu, hauteur):
+    '''
+    This module computes the resistances to diffusion.
+    '''
+
     karm = 0.41
     nconv = 2.5
-    hauteur = max(hauteur, Z0SOLNU / 0.10)
+    hauteur = max(hauteur, z0solnu / 0.10)
     d  = 0.66 * hauteur
     z0 = 0.10 * hauteur
 
-    raalim = np.log((ZR - d) / z0) / (karm**2 * wind_spd) \
-                * (np.log((ZR - d) / (hauteur - d)) + hauteur / (nconv *(hauteur - d)) * 
+    raalim = np.log((zr - d) / z0) / (karm**2 * wind) \
+                * (np.log((zr - d) / (hauteur - d)) + hauteur / (nconv *(hauteur - d)) * 
                 (np.exp(nconv * (1.0 - (d + z0) / hauteur)) - 1.0))
      
-    raslim = np.log((ZR - d) / z0) / (karm**2 * wind_spd) * hauteur \
+    raslim = np.log((zr - d) / z0) / (karm**2 * wind) * hauteur \
                 / (nconv * (hauteur - d)) * (np.exp(nconv) - np.exp(nconv * (1.0 - (d + z0) / hauteur)))
     
-    raszero = np.log(ZR / Z0SOLNU) * np.log((d + z0) / Z0SOLNU) / (karm**2 * wind_spd)
-    raazero = np.log(ZR / Z0SOLNU)**2 / (karm**2 * wind_spd) - raszero
+    raszero = np.log(zr / z0solnu) * np.log((d + z0) / z0solnu) / (karm**2 * wind)
+    raazero = np.log(zr / z0solnu)**2 / (karm**2 * wind) - raszero
 
     if (lai_prev < 4.0):
         raa = (0.25 * lai_prev * raalim) + (0.25 * (4 - lai_prev) * raazero)
@@ -217,12 +217,15 @@ def wind_profile(zosolnu, hauteur):
 
 
 def iterative_calculation(temp, lev_i_prev, temp_max, temp_min, et, z0, albedo, hur_i0, hminf_1, hccf_1, albveg, lai, trg, tpm, fracinsol, codernet, codecaltemp,
-                          raint, parsurrg, ratm, tcultmin, wind, tcultmax, daylen, ZR, lai_prev, Z0SOLNU, hauteur):
+                          raint, parsurrg, ratm, tcultmin, wind, tcultmax, daylen, zr, lai_prev, z0solnu, hauteur):
     '''
     This module performs the iterative calculation of crop temperature and net radiation.
     See section 9.3.2.3 of STICS book.
     '''
+
     tcult_tmp = temp
+    tcultmin = temp_min
+    tcultmax = temp_max
 
     j = 0
     while j < 5:
@@ -232,8 +235,8 @@ def iterative_calculation(temp, lev_i_prev, temp_max, temp_min, et, z0, albedo, 
                                                             raint, parsurrg)
 
         # Crop temperature
-        tcult, tcultmax = crop_temperature(lev_i_prev, temp_max, rnet, et, temp_min, temp, z0, codecaltemp,
-                                ratm, tcultmin, wind, lai, trg, tcultmax, albedolai, daylen, rnets, ZR, lai_prev, Z0SOLNU, hauteur)
+        tcult, tcultmax, tcultmin = crop_temperature(lev_i_prev, temp_max, rnet, et, temp_min, temp, z0, codecaltemp,
+                                ratm, tcultmin, wind, lai, trg, tcultmax, albedolai, daylen, rnets, zr, lai_prev, z0solnu, hauteur)
 
         if np.isnan(tcult):
             raise pysticsException(
@@ -246,4 +249,4 @@ def iterative_calculation(temp, lev_i_prev, temp_max, temp_min, et, z0, albedo, 
         tcult_tmp = tcult
         j += 1
     
-    return rnet, rglo, albedolai, albsol, tcult, tcultmax, converge
+    return rnet, rglo, albedolai, albsol, tcult, tcultmax, converge, tcultmin
