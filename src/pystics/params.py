@@ -590,6 +590,7 @@ class StationParams:
     CODEETP: int = 0
     LATITUDE: float = 0.
     CODERNET: int = 0
+    CODECALTEMP: int = 0
 
     # constant parameters
     ALBVEG: float = 0.23
@@ -616,6 +617,7 @@ class StationParams:
         results2 = list(set(gen_dict_extract('@choix','@nomParam',dico)))
         self.CODEETP = int([i[1] for i in results2 if i[0] if i[0] == 'codeetp'][0])
         self.CODERNET = int([i[1] for i in results2 if i[0] if i[0] == 'codernet'][0])
+        self.CODECALTEMP = int([i[1] for i in results2 if i[0] if i[0] == 'codecaltemp'][0])
     
     def __post_init__(self):
         if self.file_path != '':

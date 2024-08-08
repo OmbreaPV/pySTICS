@@ -198,7 +198,8 @@ def compute_outputs_day_zero(outputs, crop, soil, manage, constants, initial, st
     ###################################################################
     ### Iterative calculation of crop temperature and net radiation ###
     ###################################################################
-    outputs.loc[0,'rnet'], outputs.loc[0,'rglo'], outputs.loc[0,'albedolai'], outputs.loc[0,'albsol'], outputs.loc[0,'tcult'], outputs.loc[0,'tcultmax'], outputs.loc[0,'converge'] = iterative_calculation(outputs.loc[0,'temp'], outputs.loc[0,'lev'], outputs.loc[0,'temp_max'], outputs.loc[0,'temp_min'], outputs.loc[0,'et'], outputs.loc[0,'z0'], soil.ALBEDO, hur[0,0], soil.HMINF_1, soil.HCCF_1, station.ALBVEG, outputs.loc[0,'lai'], outputs.loc[0,'trg'], outputs.loc[0,'tpm'], outputs.loc[0,'fracinsol'], station.CODERNET)
+    outputs.loc[0,'rnet'], outputs.loc[0,'rglo'], outputs.loc[0,'albedolai'], outputs.loc[0,'albsol'], outputs.loc[0,'tcult'], outputs.loc[0,'tcultmax'], outputs.loc[0,'converge'], outputs.loc[0,'tcultmin'] = iterative_calculation(outputs.loc[0,'temp'], outputs.loc[0,'lev'], outputs.loc[0,'temp_max'], outputs.loc[0,'temp_min'], outputs.loc[0,'et'], outputs.loc[0,'z0'], soil.ALBEDO, hur[0,0], soil.HMINF_1, soil.HCCF_1, station.ALBVEG, outputs.loc[0,'lai'], outputs.loc[0,'trg'], outputs.loc[0,'tpm'], outputs.loc[0,'fracinsol'], station.CODERNET,
+            station.CODECALTEMP, outputs.loc[0,'raint'], constants.PARSURRG, outputs.loc[0,'ratm'], outputs.loc[0,'tcultmin'], outputs.loc[0,'wind'], outputs.loc[0,'tcultmax'], outputs.loc[0,'daylen'], station.ZR, outputs.loc[0,'lai'], soil.Z0SOLNU, outputs.loc[0,'hauteur'])
 
     ########################
     ### Soil temperature ###
