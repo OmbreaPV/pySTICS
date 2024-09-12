@@ -1,0 +1,4 @@
+{
+    "path": "../../notebooks/run_pystics_simulation_stics_example.ipynb"
+}
+
